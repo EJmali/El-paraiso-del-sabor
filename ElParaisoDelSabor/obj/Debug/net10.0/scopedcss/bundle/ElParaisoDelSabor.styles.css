@@ -1,0 +1,763 @@
+/* /Components/Layout/MainLayout.razor.rz.scp.css */
+.page[b-87i9rfempr] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+main[b-87i9rfempr] {
+    flex: 1;
+}
+
+.sidebar[b-87i9rfempr] {
+    background-image: linear-gradient(180deg, rgb(5, 39, 103) 0%, #3a0647 70%);
+}
+
+.top-row[b-87i9rfempr] {
+    background-color: #f7f7f7;
+    border-bottom: 1px solid #d6d5d5;
+    justify-content: flex-end;
+    height: 3.5rem;
+    display: flex;
+    align-items: center;
+}
+
+    .top-row[b-87i9rfempr]  a, .top-row[b-87i9rfempr]  .btn-link {
+        white-space: nowrap;
+        margin-left: 1.5rem;
+        text-decoration: none;
+    }
+
+    .top-row[b-87i9rfempr]  a:hover, .top-row[b-87i9rfempr]  .btn-link:hover {
+        text-decoration: underline;
+    }
+
+    .top-row[b-87i9rfempr]  a:first-child {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+@media (max-width: 640.98px) {
+    .top-row[b-87i9rfempr] {
+        justify-content: space-between;
+    }
+
+    .top-row[b-87i9rfempr]  a, .top-row[b-87i9rfempr]  .btn-link {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 641px) {
+    .page[b-87i9rfempr] {
+        flex-direction: row;
+    }
+
+    .sidebar[b-87i9rfempr] {
+        width: 250px;
+        height: 100vh;
+        position: sticky;
+        top: 0;
+    }
+
+    .top-row[b-87i9rfempr] {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+    .top-row.auth[b-87i9rfempr]  a:first-child {
+        flex: 1;
+        text-align: right;
+        width: 0;
+    }
+
+    .top-row[b-87i9rfempr], article[b-87i9rfempr] {
+        padding-left: 2rem !important;
+        padding-right: 1.5rem !important;
+    }
+}
+
+#blazor-error-ui[b-87i9rfempr] {
+    color-scheme: light only;
+    background: lightyellow;
+    bottom: 0;
+    box-shadow: 0 -1px 2px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    display: none;
+    left: 0;
+    padding: 0.6rem 1.25rem 0.7rem 1.25rem;
+    position: fixed;
+    width: 100%;
+    z-index: 1000;
+}
+
+    #blazor-error-ui .dismiss[b-87i9rfempr] {
+        cursor: pointer;
+        position: absolute;
+        right: 0.75rem;
+        top: 0.5rem;
+    }
+/* /Components/Layout/NavMenu.razor.rz.scp.css */
+/* ==========================================================================
+   NAVEGACIÓN BASE (ESTILOS GENERALES Y DISPOSITIVOS MÓVILES)
+   ========================================================================== */
+
+/* Contenedor de la barra superior en móviles */
+.navbar-header[b-1jrzy3sgfx] {
+    background-color: #512da8; /* Morado original */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 1rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.navbar-brand[b-1jrzy3sgfx] {
+    color: #ffffff !important;
+    font-size: 1.25rem;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+/* Botón Hamburguesa */
+.hamburger-btn[b-1jrzy3sgfx] {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 18px;
+    padding: 0;
+}
+
+.hamburger-line[b-1jrzy3sgfx] {
+    background-color: #ffffff;
+    height: 3px;
+    width: 100%;
+    border-radius: 2px;
+    transition: all 0.3s ease;
+}
+
+/* Menú desplegable en móviles */
+.nav-menu-wrapper[b-1jrzy3sgfx] {
+    background-color: #673ab7; /* Morado un poco más claro */
+    transition: max-height 0.3s ease-in-out;
+    max-height: 500px; /* Altura máxima cuando está abierto */
+    overflow: hidden;
+}
+
+/* Clase dinámica de Blazor: cuando colapse se oculta suavemente */
+.nav-menu-wrapper.collapse[b-1jrzy3sgfx] {
+    max-height: 0;
+}
+
+.nav-links[b-1jrzy3sgfx] {
+    display: flex;
+    flex-direction: column;
+    padding: 0.5rem 0;
+}
+
+.nav-item[b-1jrzy3sgfx] {
+    padding: 0.2rem 1rem;
+}
+
+/* Enlaces de Navegación Nativa y Botón de Salir */
+.nav-link[b-1jrzy3sgfx], .btn-logout-link[b-1jrzy3sgfx] {
+    color: #d1d5db !important;
+    text-decoration: none;
+    padding: 0.6rem 1rem;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+    background: transparent;
+    border: none;
+    width: 100%;
+    text-align: left;
+    cursor: pointer;
+    font-family: inherit;
+}
+
+.nav-link:hover[b-1jrzy3sgfx], .btn-logout-link:hover[b-1jrzy3sgfx] {
+    background-color: rgba(255, 255, 255, 0.15);
+    color: #ffffff !important;
+}
+
+/* Iconos de los menús */
+.nav-icon[b-1jrzy3sgfx] {
+    margin-right: 10px;
+    font-size: 1.1rem;
+}
+
+/* El número dinámico del carrito (Badge) */
+.cart-badge[b-1jrzy3sgfx] {
+    background-color: #ff4757; /* Rojo alerta */
+    color: white;
+    border-radius: 10px;
+    padding: 1px 7px;
+    font-size: 0.75rem;
+    margin-left: auto; /* Lo empuja a la derecha */
+    font-weight: bold;
+}
+
+/* Saludo de Usuario */
+.user-greeting[b-1jrzy3sgfx] {
+    color: #ffffff !important;
+    padding: 0.6rem 1rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    margin: 0.3rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    border-left: 4px solid #ffeb3b; /* Detalle amarillo */
+}
+
+/* ==========================================================================
+   DISEÑO PARA PANTALLAS GRANDES (ESCRITORIO / COMPUTADORA)
+   ========================================================================== */
+@media (min-width: 768px) {
+    /* Ocultamos el botón hamburguesa en PC */
+    .hamburger-btn[b-1jrzy3sgfx] {
+        display: none;
+    }
+
+    /* Forzamos a que el menú siempre esté visible y se alinee horizontalmente */
+    .nav-menu-wrapper.collapse[b-1jrzy3sgfx], .nav-menu-wrapper[b-1jrzy3sgfx] {
+        max-height: none !important;
+        background: transparent;
+        display: flex;
+        align-items: center;
+    }
+
+    /* Convertimos la barra superior en un Navbar de escritorio clásico */
+    .navbar-header[b-1jrzy3sgfx] {
+        box-shadow: none;
+    }
+    
+    /* Dependiendo de la plantilla, si deseas un menú lateral en lugar de superior para PC, 
+       puedes omitir o ajustar este bloque flex-direction */
+}
+/* /Components/Layout/ReconnectModal.razor.rz.scp.css */
+.components-reconnect-first-attempt-visible[b-xw55rlytr9],
+.components-reconnect-repeated-attempt-visible[b-xw55rlytr9],
+.components-reconnect-failed-visible[b-xw55rlytr9],
+.components-pause-visible[b-xw55rlytr9],
+.components-resume-failed-visible[b-xw55rlytr9],
+.components-rejoining-animation[b-xw55rlytr9] {
+    display: none;
+}
+
+#components-reconnect-modal.components-reconnect-show .components-reconnect-first-attempt-visible[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-show .components-rejoining-animation[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-paused .components-pause-visible[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-resume-failed .components-resume-failed-visible[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-retrying[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-retrying .components-reconnect-repeated-attempt-visible[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-retrying .components-rejoining-animation[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-failed[b-xw55rlytr9],
+#components-reconnect-modal.components-reconnect-failed .components-reconnect-failed-visible[b-xw55rlytr9] {
+    display: block;
+}
+
+
+#components-reconnect-modal[b-xw55rlytr9] {
+    background-color: white;
+    width: 20rem;
+    margin: 20vh auto;
+    padding: 2rem;
+    border: 0;
+    border-radius: 0.5rem;
+    box-shadow: 0 3px 6px 2px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    transition: display 0.5s allow-discrete, overlay 0.5s allow-discrete;
+    animation: components-reconnect-modal-fadeOutOpacity-b-xw55rlytr9 0.5s both;
+    &[open]
+
+{
+    animation: components-reconnect-modal-slideUp-b-xw55rlytr9 1.5s cubic-bezier(.05, .89, .25, 1.02) 0.3s, components-reconnect-modal-fadeInOpacity-b-xw55rlytr9 0.5s ease-in-out 0.3s;
+    animation-fill-mode: both;
+}
+
+}
+
+#components-reconnect-modal[b-xw55rlytr9]::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
+    animation: components-reconnect-modal-fadeInOpacity-b-xw55rlytr9 0.5s ease-in-out;
+    opacity: 1;
+}
+
+@keyframes components-reconnect-modal-slideUp-b-xw55rlytr9 {
+    0% {
+        transform: translateY(30px) scale(0.95);
+    }
+
+    100% {
+        transform: translateY(0);
+    }
+}
+
+@keyframes components-reconnect-modal-fadeInOpacity-b-xw55rlytr9 {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes components-reconnect-modal-fadeOutOpacity-b-xw55rlytr9 {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.components-reconnect-container[b-xw55rlytr9] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+#components-reconnect-modal p[b-xw55rlytr9] {
+    margin: 0;
+    text-align: center;
+}
+
+#components-reconnect-modal button[b-xw55rlytr9] {
+    border: 0;
+    background-color: #6b9ed2;
+    color: white;
+    padding: 4px 24px;
+    border-radius: 4px;
+}
+
+    #components-reconnect-modal button:hover[b-xw55rlytr9] {
+        background-color: #3b6ea2;
+    }
+
+    #components-reconnect-modal button:active[b-xw55rlytr9] {
+        background-color: #6b9ed2;
+    }
+
+.components-rejoining-animation[b-xw55rlytr9] {
+    position: relative;
+    width: 80px;
+    height: 80px;
+}
+
+    .components-rejoining-animation div[b-xw55rlytr9] {
+        position: absolute;
+        border: 3px solid #0087ff;
+        opacity: 1;
+        border-radius: 50%;
+        animation: components-rejoining-animation-b-xw55rlytr9 1.5s cubic-bezier(0, 0.2, 0.8, 1) infinite;
+    }
+
+        .components-rejoining-animation div:nth-child(2)[b-xw55rlytr9] {
+            animation-delay: -0.5s;
+        }
+
+@keyframes components-rejoining-animation-b-xw55rlytr9 {
+    0% {
+        top: 40px;
+        left: 40px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    4.9% {
+        top: 40px;
+        left: 40px;
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+
+    5% {
+        top: 40px;
+        left: 40px;
+        width: 0;
+        height: 0;
+        opacity: 1;
+    }
+
+    100% {
+        top: 0px;
+        left: 0px;
+        width: 80px;
+        height: 80px;
+        opacity: 0;
+    }
+}
+/* /Components/Pages/AdminDashboard.razor.rz.scp.css */
+.admin-container[b-zizhhmw1gy] {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.admin-header[b-zizhhmw1gy] {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+.admin-grid[b-zizhhmw1gy] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.admin-card[b-zizhhmw1gy] {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.admin-card h3[b-zizhhmw1gy] {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #512da8;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+.btn-admin-add[b-zizhhmw1gy] {
+    background-color: #4caf50 !important; /* Color verde de éxito comercial */
+}
+.admin-table[b-zizhhmw1gy] {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+.admin-table th[b-zizhhmw1gy], .admin-table td[b-zizhhmw1gy] {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.admin-table th[b-zizhhmw1gy] {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+.table-desc[b-zizhhmw1gy] {
+    margin: 2px 0 0 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+.table-price[b-zizhhmw1gy] {
+    font-weight: bold;
+    color: #2e7d32;
+}
+.table-responsive[b-zizhhmw1gy] {
+    overflow-x: auto;
+    max-height: 450px; /* Habilita scroll vertical si el menú es muy largo */
+}
+
+/* Regla responsiva para pantallas de computadoras o tablets de desarrollo */
+@media (min-width: 768px) {
+    .admin-grid[b-zizhhmw1gy] {
+        flex-direction: row; /* Divide la interfaz en 2 columnas perfectas */
+    }
+    .admin-card[b-zizhhmw1gy] {
+        flex: 1; /* Ambas tarjetas ocupan el mismo ancho exacto */
+    }
+}
+/* /Components/Pages/Carrito.razor.rz.scp.css */
+.cart-page-container[b-d8yud8as0q] {
+    padding: 2rem 1rem;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.empty-cart-view[b-d8yud8as0q] {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: #fdf2f4;
+    border-radius: 12px;
+    margin-top: 2rem;
+}
+
+.btn-primary[b-d8yud8as0q] {
+    display: inline-block;
+    background-color: #e91e63;
+    color: white;
+    padding: 0.7rem 1.5rem;
+    border-radius: 25px;
+    text-decoration: none;
+    margin-top: 1rem;
+}
+
+/* Diseño elástico: una columna en móvil, dos columnas en PC */
+.cart-content-layout[b-d8yud8as0q] {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+/* Tarjetas individuales de helados en el carrito */
+.cart-item-card[b-d8yud8as0q] {
+    background: white;
+    padding: 1.2rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    margin-bottom: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    border-left: 5px solid #e91e63;
+}
+
+.item-unit-price[b-d8yud8as0q] {
+    color: #757575;
+    font-size: 0.9rem;
+    margin: 0;
+}
+
+.btn-delete[b-d8yud8as0q] {
+    background: #ffebee;
+    color: #c62828;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+}
+
+/* Panel de totales fijo */
+.cart-summary-panel[b-d8yud8as0q] {
+    background: #fff3f6;
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid #f8bbd0;
+}
+
+.summary-row[b-d8yud8as0q] {
+    display: flex;
+    justify-content: space-between;
+    margin: 0.8rem 0;
+}
+
+.total-highlight[b-d8yud8as0q] {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #e91e63;
+}
+
+.summary-actions[b-d8yud8as0q] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+}
+
+.btn-checkout[b-d8yud8as0q] {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: 0.8rem;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-clear[b-d8yud8as0q] {
+    background: transparent;
+    color: #757575;
+    border: 1px solid #bdbdbd;
+    padding: 0.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   VERSION PC (Se activa cuando se cierra correctamente el bloque de abajo)
+   ========================================================================== */
+@media (min-width: 768px) {
+    .cart-content-layout[b-d8yud8as0q] {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .cart-items-list[b-d8yud8as0q] {
+        flex-grow: 1;
+    }
+    .cart-summary-panel[b-d8yud8as0q] {
+        width: 350px;
+        position: sticky;
+        top: 20px;
+    }
+}
+/* /Components/Pages/Catalogo.razor.rz.scp.css */
+.catalog-container[b-3clsatvxq6] {
+    padding: 2rem 1rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.catalog-header[b-3clsatvxq6] {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+/* Grid responsivo automático */
+.catalog-grid[b-3clsatvxq6] {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+}
+.ice-cream-card[b-3clsatvxq6] {
+    background: #fff;
+    border-radius: 15px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.2s;
+}
+.ice-cream-card:hover[b-3clsatvxq6] {
+    transform: translateY(-5px);
+}
+.card-content[b-3clsatvxq6] {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+.card-footer[b-3clsatvxq6] {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.price[b-3clsatvxq6] {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #e91e63;
+}
+.btn-add[b-3clsatvxq6] {
+    background: #e91e63;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 20px;
+    cursor: pointer;
+}
+/* /Components/Pages/Login.razor.rz.scp.css */
+.login-container[b-otxlyo3053] {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 3rem 1rem;
+}
+.login-card[b-otxlyo3053] {
+    background: white;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 400px;
+}
+.form-group[b-otxlyo3053] {
+    margin-bottom: 1.2rem;
+}
+.form-control[b-otxlyo3053] {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #bdbdbd;
+    border-radius: 6px;
+    margin-top: 0.3rem;
+}
+.btn-login[b-otxlyo3053] {
+    width: 100%;
+    background: #e91e63;
+    color: white;
+    border: none;
+    padding: 0.7rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.alert-danger[b-otxlyo3053] {
+    background: #ffebee;
+    color: #c62828;
+    padding: 0.7rem;
+    border-radius: 6px;
+    margin-bottom: 1rem;
+    font-size: 0.9rem;
+}
+/* /Components/Pages/Registro.razor.rz.scp.css */
+.admin-container[b-hfg2o8toom] {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.admin-header[b-hfg2o8toom] {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+.admin-grid[b-hfg2o8toom] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.admin-card[b-hfg2o8toom] {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.admin-card h3[b-hfg2o8toom] {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #512da8;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+.btn-admin-add[b-hfg2o8toom] {
+    background-color: #4caf50 !important; /* Color verde de éxito comercial */
+}
+.admin-table[b-hfg2o8toom] {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+.admin-table th[b-hfg2o8toom], .admin-table td[b-hfg2o8toom] {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.admin-table th[b-hfg2o8toom] {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+.table-desc[b-hfg2o8toom] {
+    margin: 2px 0 0 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+.table-price[b-hfg2o8toom] {
+    font-weight: bold;
+    color: #2e7d32;
+}
+.table-responsive[b-hfg2o8toom] {
+    overflow-x: auto;
+    max-height: 450px; /* Habilita scroll vertical si el menú es muy largo */
+}
+
+/* Regla responsiva para pantallas de computadoras o tablets de desarrollo */
+@media (min-width: 768px) {
+    .admin-grid[b-hfg2o8toom] {
+        flex-direction: row; /* Divide la interfaz en 2 columnas perfectas */
+    }
+    .admin-card[b-hfg2o8toom] {
+        flex: 1; /* Ambas tarjetas ocupan el mismo ancho exacto */
+    }
+}

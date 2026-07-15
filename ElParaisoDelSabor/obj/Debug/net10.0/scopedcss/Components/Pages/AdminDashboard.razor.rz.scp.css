@@ -1,0 +1,69 @@
+.admin-container[b-zizhhmw1gy] {
+    padding: 1.5rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+.admin-header[b-zizhhmw1gy] {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 1rem;
+}
+.admin-grid[b-zizhhmw1gy] {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+.admin-card[b-zizhhmw1gy] {
+    background: #ffffff;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+.admin-card h3[b-zizhhmw1gy] {
+    margin-top: 0;
+    margin-bottom: 1.5rem;
+    color: #512da8;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #f0f0f0;
+    padding-bottom: 0.5rem;
+}
+.btn-admin-add[b-zizhhmw1gy] {
+    background-color: #4caf50 !important; /* Color verde de éxito comercial */
+}
+.admin-table[b-zizhhmw1gy] {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+}
+.admin-table th[b-zizhhmw1gy], .admin-table td[b-zizhhmw1gy] {
+    padding: 0.75rem;
+    text-align: left;
+    border-bottom: 1px solid #eee;
+}
+.admin-table th[b-zizhhmw1gy] {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+.table-desc[b-zizhhmw1gy] {
+    margin: 2px 0 0 0;
+    font-size: 0.8rem;
+    color: #666;
+}
+.table-price[b-zizhhmw1gy] {
+    font-weight: bold;
+    color: #2e7d32;
+}
+.table-responsive[b-zizhhmw1gy] {
+    overflow-x: auto;
+    max-height: 450px; /* Habilita scroll vertical si el menú es muy largo */
+}
+
+/* Regla responsiva para pantallas de computadoras o tablets de desarrollo */
+@media (min-width: 768px) {
+    .admin-grid[b-zizhhmw1gy] {
+        flex-direction: row; /* Divide la interfaz en 2 columnas perfectas */
+    }
+    .admin-card[b-zizhhmw1gy] {
+        flex: 1; /* Ambas tarjetas ocupan el mismo ancho exacto */
+    }
+}

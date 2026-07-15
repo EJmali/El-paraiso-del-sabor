@@ -1,0 +1,165 @@
+@page "/admin/dashboard"
+@rendermode InteractiveServer
+@inject IProductoService ProductoService
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+
+<PageTitle>Panel de Administración - El Paraíso del Sabor</PageTitle>
+
+<div class="admin-container">
+    <!-- Bloque de seguridad perimetral -->
+    @if (!AuthService.EstaAutenticado || AuthService.UsuarioActual?.Rol != "Admin")
+    {
+        <div class="alert alert-danger text-center">
+            <h3>⚠️ Acceso Denegado</h3>
+            <p>No tienes los permisos necesarios para visualizar este panel de gestión empresarial.</p>
+            <button class="btn-auth" @onclick='() => Navigation.NavigateTo("/login")'>Ir al Login</button>
+        </div>
+    }
+    else
+    {
+        <header class="admin-header">
+            <h2>⚙️ Panel de Control del Administrador</h2>
+            <p>Bienvenido, <strong>@AuthService.UsuarioActual?.Nombre</strong>. Desde aquí gestionas el menú real.</p>
+        </header>
+
+        <div class="admin-grid">
+            <!-- COLUMNA 1: Formulario para añadir nuevos Helados -->
+            <section class="admin-card">
+                <h3>🍨 Añadir Nuevo Sabor al Menú</h3>
+                
+                @if (!string.IsNullOrEmpty(mensajeError))
+                {
+                    <div class="alert alert-danger">⚠️ @mensajeError</div>
+                }
+                @if (!string.IsNullOrEmpty(mensajeExito))
+                {
+                    <div class="alert alert-success">✅ @mensajeExito</div>
+                }
+
+                <EditForm Model="@nuevoHelado" OnValidSubmit="ManejarAgregarProducto">
+                    <div class="form-group">
+                        <label>Nombre del Helado / Sabor:</label>
+                        <input type="text" class="form-control" @bind="nuevoHelado.Nombre" placeholder="Ej. Chocolate Supremo" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>Descripción de los ingredientes:</label>
+                        <textarea class="form-control" @bind="nuevoHelado.Descripcion" placeholder="Ej. Crema de cacao belga con chispas..." rows="3" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Precio de Venta ($):</label>
+                        <input type="number" step="0.01" class="form-control" @bind="nuevoHelado.Precio" placeholder="0.00" required />
+                    </div>
+
+                    <div class="form-group">
+                        <label>URL de la Imagen (Opcional):</label>
+                        <input type="text" class="form-control" @bind="nuevoHelado.ImagenUrl" placeholder="images/sabores/chocolate.png" />
+                    </div>
+
+                    <button type="submit" class="btn-auth btn-admin-add" disabled="@estaCargando">
+                        @if (estaCargando)
+                        {
+                            <span>Guardando en BD...</span>
+                        }
+                        else
+                        {
+                            <span>Publicar en Catálogo 🚀</span>
+                        }
+                    </button>
+                </EditForm>
+            </section>
+
+            <!-- COLUMNA 2: Vista previa del Inventario Actual -->
+            <section class="admin-card">
+                <h3>📋 Vista Previa del Menú Vigente</h3>
+                @if (listadoProductos == null)
+                {
+                    <p>Cargando existencias...</p>
+                }
+                else if (!listadoProductos.Any())
+                {
+                    <p class="text-muted">El catálogo está completamente vacío en la base de datos.</p>
+                }
+                else
+                {
+                    <div class="table-responsive">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th>Sabor</th>
+                                    <th>Precio</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var prod in listadoProductos)
+                                {
+                                    <tr>
+                                        <td>
+                                            <strong>@prod.Nombre</strong>
+                                            <p class="table-desc">@prod.Descripcion</p>
+                                        </td>
+                                        <td class="table-price">$@prod.Precio.ToString("F2")</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            </section>
+        </div>
+    }
+</div>
+
+@code {
+    private Producto nuevoHelado = new();
+    private List<Producto>? listadoProductos;
+    private string mensajeError = string.Empty;
+    private string mensajeExito = string.Empty;
+    private bool estaCargando = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Solo cargamos los productos si el usuario es realmente el administrador
+        if (AuthService.EstaAutenticado && AuthService.UsuarioActual?.Rol == "Admin")
+        {
+            await CargarProductos();
+        }
+    }
+
+    private async Task CargarProductos()
+    {
+        listadoProductos = await ProductoService.GetProductosAsync();
+    }
+
+    private async Task ManejarAgregarProducto()
+    {
+        mensajeError = string.Empty;
+        mensajeExito = string.Empty;
+
+        if (nuevoHelado.Precio <= 0)
+        {
+            mensajeError = "El precio de venta debe ser un número mayor a cero.";
+            return;
+        }
+
+        estaCargando = true;
+
+        // Intentamos guardar de forma asíncrona en el archivo SQLite
+        bool guardado = await ProductoService.GuardarProductoAsync(nuevoHelado);
+        
+        estaCargando = false;
+
+        if (guardado)
+        {
+            mensajeExito = $"¡{nuevoHelado.Nombre} ha sido añadido con éxito al catálogo!";
+            nuevoHelado = new Producto(); // Limpiamos el formulario para el siguiente registro
+            await CargarProductos(); // Refrescamos la tabla lateral en tiempo real
+        }
+        else
+        {
+            mensajeError = "Ya existe un producto registrado con ese mismo nombre.";
+        }
+    }
+}

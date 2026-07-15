@@ -1,0 +1,101 @@
+@page "/carrito"
+@rendermode InteractiveServer
+@inject CarritoService CarritoService
+@implements IDisposable
+
+<PageTitle>Tu Carrito - El Paraíso del Sabor</PageTitle>
+
+<div class="cart-page-container">
+    <h2>🛒 Tu Carrito de Compras</h2>
+
+    @if (!CarritoService.Items.Any())
+    {
+        <div class="empty-cart-view">
+            <p>Tu carrito está vacío. ¿Provoca un helado?</p>
+            <a href="catalogo" class="btn-primary">Ver el Catálogo 🍨</a>
+        </div>
+    }
+    else
+    {
+        <div class="cart-content-layout">
+            <div class="cart-items-list">
+                @foreach (var item in CarritoService.Items)
+                {
+                    <div class="cart-item-card">
+                        <div class="item-details">
+                            <h4>@item.Producto.Nombre</h4>
+                            <p class="item-unit-price">Precio unitario: $@item.Producto.Precio.ToString("F2")</p>
+                        </div>
+                        
+                        <div class="item-quantity-controls">
+                            <span class="quantity-badge">Cantidad: <strong>@item.Cantidad</strong></span>
+                        </div>
+
+                        <div class="item-subtotal">
+                            <span>Subtotal: <strong>$@item.Total.ToString("F2")</strong></span>
+                        </div>
+
+                        <div class="item-actions">
+                            <button class="btn-delete" @onclick="() => EliminarItem(item.Producto.Id)">
+                                🗑️ Eliminar
+                            </button>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <aside class="cart-summary-panel">
+                <h3>Resumen del Pedido</h3>
+                <hr />
+                <div class="summary-row">
+                    <span>Total Productos:</span>
+                    <span>@CarritoService.ObtenerCantidadTotal()</span>
+                </div>
+                <div class="summary-row total-highlight">
+                    <span>Total a Pagar:</span>
+                    <span>$@CarritoService.ObtenerPrecioTotal().ToString("F2")</span>
+                </div>
+                
+                <div class="summary-actions">
+                    <button class="btn-checkout" @onclick="ProcesarCompra">
+                        Proceder al Pago 💳
+                    </button>
+                    <button class="btn-clear" @onclick="LimpiarTodo">
+                        Vaciar Carrito 🧹
+                    </button>
+                </div>
+            </aside>
+        </div>
+    }
+</div>
+
+@code {
+    protected override void OnInitialized()
+    {
+        // Nos suscribimos para que si el estado cambia, la página se refresque sola
+        CarritoService.OnChange += ActualizarVista;
+    }
+
+    private void ActualizarVista() => InvokeAsync(StateHasChanged);
+
+    private void EliminarItem(int productoId)
+    {
+        CarritoService.EliminarProducto(productoId);
+    }
+
+    private void LimpiarTodo()
+    {
+        CarritoService.LimpiarCarrito();
+    }
+
+    private void ProcesarCompra()
+    {
+        // Aquí conectaremos la pasarela o la orden de entrega en el futuro
+        Console.WriteLine("[Termux Log] Procesando orden por un total de: $" + CarritoService.ObtenerPrecioTotal());
+    }
+
+    public void Dispose()
+    {
+        CarritoService.OnChange -= ActualizarVista;
+    }
+}

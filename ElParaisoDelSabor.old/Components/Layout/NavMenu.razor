@@ -1,0 +1,104 @@
+@rendermode InteractiveServer
+@inject CarritoService CarritoService
+@inject AuthService AuthService
+@inject NavigationManager Navigation
+@implements IDisposable
+
+<div class="navbar-header">
+    <button title="Menu" class="hamburger-btn" @onclick="ToggleNavMenu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+    </button>
+    <a class="navbar-brand" href="">🍨 El Paraíso del Sabor</a>
+</div>
+
+<div class="nav-menu-wrapper @(collapseNavMenu ? "collapse" : "")">
+    <nav class="nav-links">
+        <div class="nav-item">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
+                <span class="nav-icon">🏠</span> Home
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="catalogo">
+                <span class="nav-icon">➕</span> Catalogo
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="crea-tu-sabor">
+                <span class="nav-icon">📋</span> Crea tu sabor
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="carrito">
+                <span class="nav-icon">🛒</span> Carrito
+                @if (CarritoService.ObtenerCantidadTotal() > 0)
+                {
+                    <span class="cart-badge">@CarritoService.ObtenerCantidadTotal()</span>
+                }
+            </NavLink>
+        </div>
+
+        <div class="nav-item">
+            <NavLink class="nav-link" href="acerca-de">
+                <span class="nav-icon">⚠️</span> Nosotros
+            </NavLink>
+        </div>
+
+        @* 🔒 SECCIÓN DINÁMICA DE NUESTRO AUTH SERVICE PERSONALIZADO *@
+        @if (AuthService.EstaAutenticado)
+        {
+            <div class="nav-item user-greeting">
+                <span class="nav-icon">👤</span> ¡Hola, @AuthService.UsuarioActual?.Nombre!
+            </div>
+            <div class="nav-item">
+                <button class="nav-link btn-logout-link" @onclick="ManejarLogout">
+                    <span class="nav-icon">🚪</span> Salir
+                </button>
+            </div>
+        }
+        else
+        {
+            <div class="nav-item">
+                <NavLink class="nav-link" href="login">
+                    <span class="nav-icon">🔑</span> Iniciar Sesión
+                </NavLink>
+            </div>
+        }
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    protected override void OnInitialized()
+    {
+        // Nos suscribimos a ambos servicios para reaccionar en tiempo real
+        CarritoService.OnChange += RealizarSubidaVisual;
+        AuthService.OnChange += RealizarSubidaVisual;
+    }
+
+    private void RealizarSubidaVisual() => InvokeAsync(StateHasChanged);
+
+    // 👇 AQUÍ ESTÁ LA FUNCIÓN DE LOGOUT DEFINIDA
+    private void ManejarLogout()
+    {
+        AuthService.CerrarSesion(); // Borra el usuario de la memoria Singleton
+        Navigation.NavigateTo("/"); // Redirige al Home automáticamente
+    }
+
+    public void Dispose()
+    {
+        CarritoService.OnChange -= RealizarSubidaVisual;
+        AuthService.OnChange -= RealizarSubidaVisual;
+    }
+}
