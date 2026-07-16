@@ -209,8 +209,6 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/icudt_CJK.tjcz0u77k5.dat
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/icudt_EFIGS.tptq2av103.dat
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/icudt_no_CJK.lfu7j35m59.dat
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.560xdgz6o1.wasm
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.vwtnkev0nu.pdb
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/dotnet.js
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/blazor.webassembly.js.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/Microsoft.AspNetCore.Authorization.wp5b4xwrtz.wasm.gz
@@ -422,8 +420,6 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/icudt_CJK.tjcz0u77k5.dat.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/icudt_EFIGS.tptq2av103.dat.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/icudt_no_CJK.lfu7j35m59.dat.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.560xdgz6o1.wasm.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.vwtnkev0nu.pdb.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/dotnet.js.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/ElParaisoDelSabor.Client.staticwebassets.runtime.json
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/ElParaisoDelSabor.Client.staticwebassets.endpoints.json
@@ -1069,9 +1065,6 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/vjgqrp227o-{0}-tjcz0u77k5-tjcz0u77k5.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/68sjrobom8-{0}-tptq2av103-tptq2av103.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/dtco4dapg2-{0}-lfu7j35m59-lfu7j35m59.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/w0tpemv94j-{0}-560xdgz6o1-560xdgz6o1.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/k844u6l5c4-{0}-vwtnkev0nu-vwtnkev0nu.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/lw3l5s7d9n-{0}-qrbxp9ge4j-qrbxp9ge4j.gz
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/staticwebassets.build.json
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/staticwebassets.build.json.cache
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/staticwebassets.development.json
@@ -1082,3 +1075,11 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/refint/ElParaisoDelSabor.Client.dll
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/ElParaisoDelSabor.Client.pdb
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/ref/ElParaisoDelSabor.Client.dll
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.116o6fkwpl.wasm
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.qn80jk5d1g.pdb
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.116o6fkwpl.wasm.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.qn80jk5d1g.pdb.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/ElParaisoDelSabor.Client.sourcelink.json
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/w0tpemv94j-{0}-116o6fkwpl-116o6fkwpl.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/k844u6l5c4-{0}-qn80jk5d1g-qn80jk5d1g.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/lw3l5s7d9n-{0}-brjzjejyk8-brjzjejyk8.gz

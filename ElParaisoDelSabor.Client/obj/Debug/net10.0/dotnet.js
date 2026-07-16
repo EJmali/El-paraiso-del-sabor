@@ -5,7 +5,7 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
   "mainAssemblyName": "ElParaisoDelSabor.Client",
   "applicationEnvironment": "Development",
   "resources": {
-    "hash": "sha256-xDSvXVrMxWccIeGAXJFaP9aRA0sRsvGb7yZbjGbTVOU=",
+    "hash": "sha256-w/tV3tk+z4BPRKRyu6LDWQZspFF9Wn7V4vmCXJPhZuA=",
     "jsModuleNative": [
       {
         "name": "dotnet.native.ikrs475e5v.js"
@@ -1254,16 +1254,16 @@ var e=!1;const t=async()=>WebAssembly.validate(new Uint8Array([0,97,115,109,1,0,
       },
       {
         "virtualPath": "ElParaisoDelSabor.Client.wasm",
-        "name": "ElParaisoDelSabor.Client.560xdgz6o1.wasm",
-        "hash": "sha256-HZzfzLZWm/tdhSC86zyuXDHmHfPBmpvblO0X9PxJn7s=",
+        "name": "ElParaisoDelSabor.Client.116o6fkwpl.wasm",
+        "hash": "sha256-eymT8OsyylrA5d+wYGG1d0DfmR8P631rTYQ8WKro4PQ=",
         "cache": "force-cache"
       }
     ],
     "pdb": [
       {
         "virtualPath": "ElParaisoDelSabor.Client.pdb",
-        "name": "ElParaisoDelSabor.Client.vwtnkev0nu.pdb",
-        "hash": "sha256-L3OoGGFyRxNFg0VOWM6hPinoSoJKc5STNC1JPJ6MExQ=",
+        "name": "ElParaisoDelSabor.Client.qn80jk5d1g.pdb",
+        "hash": "sha256-1n6xNrKaASFA4smvNlwoMf2myGWtKYp+Lz6IQYt4fcg=",
         "cache": "force-cache"
       }
     ],

@@ -1,0 +1,21 @@
+.rounded-4 {
+    border-radius: 1.25rem !important;
+}
+
+.image-placeholder {
+    background-color: #f8f9fa;
+    height: 350px;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    border: 2px dashed #dee2e6;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}

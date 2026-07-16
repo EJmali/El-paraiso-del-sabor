@@ -1,7 +1,63 @@
-﻿@page "/"
+@page "/"
+@inject NavigationManager Navigation
 
-<PageTitle>Home</PageTitle>
+<PageTitle>Inicio - El Paraíso del Sabor</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="container py-5 text-center animate-fade-in">
+    <div class="row justify-content-center align-items-center my-4">
+        <div class="col-md-8">
+            <span class="fs-4 text-muted">🍨 Bienvenidos a la Experiencia Más Dulce</span>
+            <h1 class="display-4 fw-bold my-3 text-dark" style="font-family: 'Poppins', sans-serif;">
+                El Paraíso del Sabor
+            </h1>
+            <p class="lead text-secondary mb-4 fs-5">
+                Descubre un universo de helados artesanales preparados con los ingredientes más frescos y seleccionados. ¡Cada cucharada es un viaje directo al cielo!
+            </p>
+            
+            <a href="catalogo" class="btn btn-lg px-5 py-3 text-white fw-bold shadow-sm custom-btn-magenta">
+                Ver el Menú de Paraíso 🍧
+            </a>
+        </div>
+    </div>
 
-Welcome to your new app.
+    <hr class="my-5 opacity-25" />
+
+    <div class="row g-4 justify-content-center">
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center rounded-4">
+                <div class="fs-1 text-danger mb-2">🍦</div>
+                <h3 class="h5 fw-bold text-dark">Calidad Premium</h3>
+                <p class="text-muted small mb-0">
+                    Cremas base hechas desde cero con frutas naturales y el auténtico cacao que le encanta a tu paladar.
+                </p>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center rounded-4">
+                <div class="fs-1 text-warning mb-2">🎨</div>
+                <h3 class="h5 fw-bold text-dark">Crea tu Sabor</h3>
+                <p class="text-muted small mb-0">
+                    ¿Quieres innovar? Diseña tu propia combinación de bases, siropes y toppings a tu medida exacta.
+                </p>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="card h-100 border-0 shadow-sm p-4 text-center rounded-4">
+                <div class="fs-1 text-success mb-2">🚀</div>
+                <h3 class="h5 fw-bold text-dark">Pedido Express</h3>
+                <p class="text-muted small mb-0">
+                    Elige tus favoritos en el catálogo, añádelos al carrito y recíbelos listos para disfrutar.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    private void IrAlCatalogo()
+    {
+        Navigation.NavigateTo("catalogo");
+    }
+}

@@ -232,5 +232,7 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/ref/ElParaisoDelSabor.dll
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/scopedcss/Components/Pages/Registro.razor.rz.scp.css
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/scopedcss/Components/Pages/AdminDashboard.razor.rz.scp.css
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/h91m76hnh3-{0}-py3p04g270-py3p04g270.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/p723dxof1n-{0}-py3p04g270-py3p04g270.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/ElParaisoDelSabor.sourcelink.json
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/scopedcss/Components/Pages/Home.razor.rz.scp.css
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/h91m76hnh3-{0}-ymg4vdfrye-ymg4vdfrye.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/p723dxof1n-{0}-ymg4vdfrye-ymg4vdfrye.gz

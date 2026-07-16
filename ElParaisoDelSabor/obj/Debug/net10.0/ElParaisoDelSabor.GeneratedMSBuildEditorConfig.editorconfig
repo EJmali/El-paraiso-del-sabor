@@ -194,10 +194,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9FcnJvci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/Components/Pages/Home.razor]
-build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
 [/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/Components/Pages/NotFound.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ob3RGb3VuZC5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
@@ -238,9 +234,17 @@ build_metadata.AdditionalFiles.CssScope = b-d8yud8as0q
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9DYXRhbG9nby5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-3clsatvxq6
 
+[/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/Components/Pages/Home.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ib21lLnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-acjetgbect
+
 [/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/Components/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Mb2dpbi5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-otxlyo3053
+
+[/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/Components/Pages/Nosotros.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9Ob3NvdHJvcy5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-43pqblj14x
 
 [/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/Components/Pages/Registro.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50cy9QYWdlcy9SZWdpc3Ryby5yYXpvcg==
