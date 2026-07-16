@@ -7,11 +7,11 @@ using ElParaisoDelSabor.Data.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// 1. Configuración de la Interfaz Gráfica (Blazor Server Unificado)
+// Configuración de la Interfaz Gráfica (Blazor Server Unificado)
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
-// 2. Registro de la Base de Datos SQLite utilizando tu Contexto Personalizado
+// Registro de la Base de Datos SQLite utilizando tu Contexto Personalizado
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") 
     ?? "Data Source=ElParaisoDelSabor.db";
 
@@ -21,16 +21,25 @@ builder.Services.AddDbContextFactory<ApplicationDbContext>(options =>
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-// 3. Registro de la Capa de Lógica de Negocio (Tus Servicios)
+// Registro de la Capa de Lógica de Negocio (Servicios)
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<CarritoService>();
+builder.Services.AddSingleton<DollarService>();
 
-// Tu autenticación personalizada: Scoped para que cada celular tenga su sesión independiente
+builder.Services.AddHttpClient<DollarBackgroundService>(client =>
+{
+    client.BaseAddress = new Uri("https://ve.dolarapi.com/v1/dolares/oficial");
+});
+
+builder.Services.AddHostedService<DollarBackgroundService>();
+
+// autenticación personalizada: Scoped para que cada celular tenga su sesión independiente
+// este sistema de autenticacion es una implementacion propia no el que maneja Blazor por defecto
 builder.Services.AddScoped<AuthService>(); 
 
 var app = builder.Build();
 
-// 4. Pipeline de configuración de solicitudes HTTP
+// Pipeline de configuración de solicitudes HTTP
 if (app.Environment.IsDevelopment())
 {
     app.UseMigrationsEndPoint();

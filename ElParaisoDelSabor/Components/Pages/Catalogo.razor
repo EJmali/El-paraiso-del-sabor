@@ -1,7 +1,9 @@
 @page "/catalogo"
 @rendermode InteractiveServer
+@using ElParaisoDelSabor.Services
 @inject IProductoService ProductoService
 @inject CarritoService CarritoService
+@inject DollarService DollarService
 
 <PageTitle>Catálogo - El Paraíso del Sabor</PageTitle>
 
@@ -9,6 +11,10 @@
     <header class="catalog-header">
         <h1>🍨 Nuestro Menú de Paraíso 🍨</h1>
         <p>Helados artesanales preparados con los mejores ingredientes.</p>
+        @if (tasaDollar > 0)
+        {
+            <div class="rate-badge">Tasa BCV: Bs. @tasaDollar.ToString("N2")</div>
+        }
     </header>
 
     @if (productos == null)
@@ -36,7 +42,13 @@
                         <h3>@helado.Nombre</h3>
                         <p class="description">@helado.Descripcion</p>
                         <div class="card-footer">
-                            <span class="price">$@helado.Precio.ToString("F2")</span>
+                            <div class="price-block">
+                                <span class="price-usd">$@helado.Precio.ToString("F2")</span>
+                                @if (tasaDollar > 0)
+                                {
+                                    <span class="price-bs">Bs. @((helado.Precio * tasaDollar).ToString("N2"))</span>
+                                }
+                            </div>
                             <button class="btn-add" @onclick="() => AgregarAlCarrito(helado)">
                                 Añadir 🛒
                             </button>
@@ -50,12 +62,12 @@
 
 @code {
     private List<Producto>? productos;
+    private decimal tasaDollar;
 
-    // Método del ciclo de vida de Blazor: Se ejecuta al cargar la página
     protected override async Task OnInitializedAsync()
     {
-        // Llamamos de forma asíncrona a nuestro servicio de base de datos
         productos = await ProductoService.GetProductosAsync();
+        tasaDollar = DollarService.PrecioActual;
     }
 
     private void AgregarAlCarrito(Producto helado)

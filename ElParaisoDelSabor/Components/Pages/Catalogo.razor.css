@@ -3,16 +3,30 @@
     max-width: 1200px;
     margin: 0 auto;
 }
+
 .catalog-header {
     text-align: center;
     margin-bottom: 3rem;
 }
-/* Grid responsivo automático */
+
+.rate-badge {
+    display: inline-block;
+    background-color: #f8f9fa;
+    color: #495057;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: 1px solid #dee2e6;
+    margin-top: 0.5rem;
+}
+
 .catalog-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
 }
+
 .ice-cream-card {
     background: #fff;
     border-radius: 15px;
@@ -22,26 +36,56 @@
     flex-direction: column;
     transition: transform 0.2s;
 }
+
 .ice-cream-card:hover {
     transform: translateY(-5px);
 }
+
+.card-image img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
 .card-content {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
+
+.description {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
 .card-footer {
     margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.price {
+
+.price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.price-usd {
     font-size: 1.4rem;
     font-weight: bold;
     color: #e91e63;
+    line-height: 1;
 }
+
+.price-bs {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
 .btn-add {
     background: #e91e63;
     color: white;
@@ -49,4 +93,15 @@
     padding: 0.6rem 1.2rem;
     border-radius: 20px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-add:hover {
+    background: #c2185b;
+}
+
+.loading-box {
+    text-align: center;
+    padding: 3rem;
 }

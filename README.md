@@ -20,7 +20,7 @@ De este modo, se sustituyó Windows Forms por Blazor manteniendo los objetivos f
 
 ## Uso de Git y GitHub en el desarrollo
 
-Para la gestión del código fuente se adoptó Git como sistema de control de versiones y GitHub como plataforma de alojamiento del repositorio del proyecto.
+Para la gestión del código fuente se adoptó Git como sistema de control de versiones y GitHub como plataforma de alojamiento del repositorio del proyecto. [web:38][web:41]
 
 Esta combinación permitió:
 
@@ -41,6 +41,14 @@ El uso del VPS aportó:
 - Una experiencia más cercana a un entorno de uso real, manteniendo al mismo tiempo el carácter académico del proyecto.
 
 El VPS, combinado con el repositorio en GitHub y la interfaz en Blazor, permitió que el proyecto se desarrollara y revisara de forma coordinada, haciendo visibles los cambios a todo el equipo sin depender de copias locales aisladas.
+
+## Acceso a la aplicación
+
+Mientras el servidor VPS permanezca activo, la aplicación puede consultarse desde cualquier navegador web mediante la siguiente dirección:
+
+- [http://159.198.39.141:5000](http://159.198.39.141:5000)
+
+La disponibilidad de esta URL está sujeta al estado del servicio en el VPS y se mantiene vigente durante un lapso de tiempo indefinido, condicionado únicamente por la administración del servidor.
 
 ## Consideraciones finales
 

@@ -601,16 +601,30 @@ main[b-87i9rfempr] {
     max-width: 1200px;
     margin: 0 auto;
 }
+
 .catalog-header[b-3clsatvxq6] {
     text-align: center;
     margin-bottom: 3rem;
 }
-/* Grid responsivo automático */
+
+.rate-badge[b-3clsatvxq6] {
+    display: inline-block;
+    background-color: #f8f9fa;
+    color: #495057;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    border: 1px solid #dee2e6;
+    margin-top: 0.5rem;
+}
+
 .catalog-grid[b-3clsatvxq6] {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 2rem;
 }
+
 .ice-cream-card[b-3clsatvxq6] {
     background: #fff;
     border-radius: 15px;
@@ -620,26 +634,56 @@ main[b-87i9rfempr] {
     flex-direction: column;
     transition: transform 0.2s;
 }
+
 .ice-cream-card:hover[b-3clsatvxq6] {
     transform: translateY(-5px);
 }
+
+.card-image img[b-3clsatvxq6] {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
 .card-content[b-3clsatvxq6] {
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
     flex-grow: 1;
 }
+
+.description[b-3clsatvxq6] {
+    color: #6c757d;
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+}
+
 .card-footer[b-3clsatvxq6] {
     margin-top: auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.price[b-3clsatvxq6] {
+
+.price-block[b-3clsatvxq6] {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.price-usd[b-3clsatvxq6] {
     font-size: 1.4rem;
     font-weight: bold;
     color: #e91e63;
+    line-height: 1;
 }
+
+.price-bs[b-3clsatvxq6] {
+    font-size: 0.9rem;
+    color: #6c757d;
+    font-weight: 500;
+}
+
 .btn-add[b-3clsatvxq6] {
     background: #e91e63;
     color: white;
@@ -647,6 +691,17 @@ main[b-87i9rfempr] {
     padding: 0.6rem 1.2rem;
     border-radius: 20px;
     cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
+}
+
+.btn-add:hover[b-3clsatvxq6] {
+    background: #c2185b;
+}
+
+.loading-box[b-3clsatvxq6] {
+    text-align: center;
+    padding: 3rem;
 }
 /* /Components/Pages/Home.razor.rz.scp.css */
 .custom-btn-magenta[b-acjetgbect] {
@@ -716,6 +771,28 @@ main[b-87i9rfempr] {
     border-radius: 6px;
     margin-bottom: 1rem;
     font-size: 0.9rem;
+}
+/* /Components/Pages/Nosotros.razor.rz.scp.css */
+.rounded-4[b-43pqblj14x] {
+    border-radius: 1.25rem !important;
+}
+
+.image-placeholder[b-43pqblj14x] {
+    background-color: #f8f9fa;
+    height: 350px;
+    width: 100%;
+    max-width: 450px;
+    margin: 0 auto;
+    border: 2px dashed #dee2e6;
+}
+
+.animate-fade-in[b-43pqblj14x] {
+    animation: fadeIn-b-43pqblj14x 0.5s ease-in-out;
+}
+
+@keyframes fadeIn-b-43pqblj14x {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 /* /Components/Pages/Registro.razor.rz.scp.css */
 .admin-container[b-hfg2o8toom] {
