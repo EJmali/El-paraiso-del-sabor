@@ -1,54 +1,94 @@
-# El Paraíso del Sabor – Informe técnico
+# El Paraíso del Sabor - Enterprise Management System
 
-Este documento describe la solución técnica implementada para la aplicación web **El Paraíso del Sabor**, desarrollada en .NET 10 con Blazor, así como las decisiones principales que guiaron su construcción y organización.
+Sistema modular de arquitectura desacoplada para la automatización de inventario, procesamiento de comandas transaccionales y auditoría de datos en tiempo real, desarrollado bajo el ecosistema de alto rendimiento de .NET y Blazor Server.
 
-## Descripción general de la solución
+## 🏗️ Arquitectura del Sistema
 
-El sistema es una aplicación web de tipo e‑commerce orientada a la gestión de productos relacionados con el ámbito alimenticio y a la interacción con usuarios registrados mediante un mecanismo de autenticación propia.
+La solución se rige bajo principios de diseño limpio, desacoplamiento estricto de responsabilidades y ejecución asíncrona no bloqueante (Non-blocking Asynchronous I/O). Toda la carga computacional pesada y el renderizado del DOM se centralizan en el servidor, utilizando canales de comunicación bidireccional mediante WebSockets a través de la infraestructura de **SignalR**.
 
-La estructura del proyecto se apoya en una arquitectura modular con componentes Blazor, servicios de lógica de negocio y acceso a datos con SQLite y Entity Framework Core, manteniendo todo el código gestionado mediante Git y alojado en un repositorio en GitHub.
+### 💻 Stack Tecnológico
+*   **Core Engine:** .NET 8.0 / C# 12
+*   **Framework de Interfaz:** Blazor Server SPA (Single Page Application)
+*   **Capa de Persistencia (ORM):** Entity Framework Core Code-First
+*   **Motor de Base de Datos:** SQLite Relacional Embebido
+*   **Entorno de Compilación Nativo:** Clang / Make en Linux Environment (Termux Isolated Environment)
 
-## Adopción de Blazor como interfaz principal
+---
 
-En el planteamiento inicial del proyecto, el uso de Windows Forms se estableció como opción obligatoria para la interfaz de usuario. Durante el desarrollo, se propuso y acordó con el profesor la adopción de Blazor como alternativa tecnológica, con base en las siguientes razones:
+## 📊 Arquitectura Relacional de Datos (Database Schema)
 
-- Blazor ofrece una interfaz web moderna que se ejecuta en el navegador, sin necesidad de instalar clientes de escritorio en cada equipo.
-- Su modelo basado en componentes facilita un desarrollo modular y organizado, permitiendo separar claramente vistas, lógica y manejo de datos.
-- Al integrarse directamente en el ecosistema actual de .NET, Blazor refleja prácticas más cercanas a aplicaciones web reales, lo que enriquece el valor técnico del proyecto.
+El diseño físico implementa una base de datos relacional de alta consistencia con restricciones explícitas de clave primaria, unicidad e integridad referencial en cascada controlada.
 
-De este modo, se sustituyó Windows Forms por Blazor manteniendo los objetivos funcionales requeridos y aprovechando un marco de trabajo más adecuado para la colaboración, la modularidad y la evolución futura de la solución.
+```text
+  [Usuario] (1) ─── 🔑 UsuarioId ───> (N) [Pedido] (1) ─── 🔑 PedidoId ───> (N) [DetallePedido]
+                                                                                      │
+                                                                                🔑 ProductoId
+                                                                                      │
+                                                                           (1) [Producto]
+```
 
-## Uso de Git y GitHub en el desarrollo
+### Mecanismos de Integridad Aplicados
+1. **Preservación Histórica Transaccional:** La entidad intermedia `DetallePedido` captura y congela los valores de `PrecioUnitario` en el instante exacto de la confirmación de compra. Esto evita la alteración retroactiva de auditorías contables frente a modificaciones posteriores en la tabla maestra de `Productos`.
+2. **Abstracción mediante Borrado Lógico (Soft Delete):** La remoción de stock obedece a un indicador booleano (`Activo = false`). Las filas físicas jamás se destruyen con sentencias `DELETE` directas, salvaguardando la integridad referencial de claves foráneas históricas asociadas a comandas antiguas.
 
-Para la gestión del código fuente se adoptó Git como sistema de control de versiones y GitHub como plataforma de alojamiento del repositorio del proyecto. [web:38][web:41]
+---
 
-Esta combinación permitió:
+## ⚙️ Capa de Servicios y Procesamiento Asíncrono
 
-- Registrar de forma continua los cambios realizados en el código y las decisiones técnicas tomadas.
-- Coordinar el trabajo del equipo sobre una misma base de código, reduciendo problemas de versiones y archivos desactualizados.
-- Contar con un punto central donde revisar el historial del proyecto, documentar el avance y presentar el resultado final.
+La aplicación implementa la inyección de dependencias (`Dependency Injection`) con ciclos de vida controlados (`Scoped`, `Singleton`, `Transient`) para mitigar colisiones en subprocesos concurrentes.
 
-Al apoyarse en GitHub, el repositorio de **El Paraíso del Sabor** se convierte también en el lugar natural para consultar este informe técnico y el resto de documentación asociada.
+### Gestión Segura de Contextos (Thread-Safety)
+Debido a la naturaleza persistente de los circuitos de Blazor Server, compartir instancias directas de contextos de base de datos puede inducir a condiciones de carrera (`Race Conditions`). Para resolver esto, el sistema inyecta una fábrica abstracta (`IDbContextFactory<T>`), asegurando que cada consulta asíncrona instancie y destruya su propio bloque de conexión a disco:
 
-## Uso de VPS para acceso remoto al sistema
+```csharp
+public async Task<bool> CrearPedidoAsync(Pedido pedido)
+{
+    using var context = await _contextFactory.CreateDbContextAsync();
+    context.Pedidos.Add(pedido);
+    return await context.SaveChangesAsync() > 0;
+}
+```
 
-Además del entorno local de desarrollo, se habilitó un servidor VPS para ejecutar la aplicación de forma remota.
+---
 
-El uso del VPS aportó:
+## 🌐 Consumo Automatizado de Servicios Web (External API & Background Workers)
 
-- La posibilidad de que cada integrante del equipo accediera a la aplicación desde su navegador, observando el avance del proyecto en tiempo real.
-- Un punto centralizado para administrar el dashboard y comprobar el comportamiento del sistema en un entorno separado del desarrollo.
-- Una experiencia más cercana a un entorno de uso real, manteniendo al mismo tiempo el carácter académico del proyecto.
+Para mitigar los efectos de la fluctuación de la moneda local, el backend ejecuta una tarea cronometrada persistente en segundo plano implementando la abstracción abstracta `BackgroundService`.
 
-El VPS, combinado con el repositorio en GitHub y la interfaz en Blazor, permitió que el proyecto se desarrollara y revisara de forma coordinada, haciendo visibles los cambios a todo el equipo sin depender de copias locales aisladas.
+### Pipeline de Datos Cambiarios
+1. El `DollarBackgroundService` despierta de forma cíclica (cada 4 horas) en un hilo secundario sin interferir con el hilo de ejecución de la interfaz gráfica.
+2. Realiza una petición asíncrona `GET` y deserializa un payload estructurado desde el endpoint seguro de la API cambiaria externa.
+3. Actualiza de manera atómica un servicio centralizado tipo `Singleton` (`DollarService`), propagando instantáneamente el nuevo factor de conversión a los componentes del catálogo y la comanda sin necesidad de llamadas directas a base de datos en cada renderizado.
 
-## Acceso a la aplicación
+#### Estructura de Intercambio (JSON DTO Mapping)
+```json
+{
+  "compra": 36.45,
+  "venta": 36.55,
+  "promedio": 36.50,
+  "fechaActualizacion": "2026-07-17T00:00:00Z"
+}
+```
+
+---
+
+## 🔒 Control de Estado y Autenticación Personalizada
+
+El software descarta los intermediarios pesados de cookies nativas para implementar un motor ágil de gestión de sesiones a través del servicio desacoplado `AuthService`. 
+
+El estado de la sesión activa de los clientes (`UsuarioActual`) se mantiene encapsulado y expone un patrón de eventos reactivos (`Action OnChange`). Cuando un cliente inicia o cierra sesión, el evento notifica al árbol de componentes de Blazor para forzar el refresco selectivo de la interfaz (`StateHasChanged`), bloqueando las rutas críticas del Dashboard Administrativo y redirigiendo el procesamiento del carrito de compras de forma totalmente dinámica y segura.
+
+---
+
+## 🚀 Despliegue e Infraestructura (VPS Deployment)
 
 Mientras el servidor VPS permanezca activo, la aplicación puede consultarse desde cualquier navegador web mediante la siguiente dirección:
 
-- [http://159.198.39.141:5000](http://159.198.39.141:5000)
+*   [http://159.198.39.141:5000](http://159.198.39.141:5000)
 
 La disponibilidad de esta URL está sujeta al estado del servicio en el VPS y se mantiene vigente durante un lapso de tiempo indefinido, condicionado únicamente por la administración del servidor.
+
+---
 
 ## Consideraciones finales
 
