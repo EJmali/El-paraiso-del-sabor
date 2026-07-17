@@ -1076,10 +1076,10 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/ElParaisoDelSabor.Client.pdb
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/ref/ElParaisoDelSabor.Client.dll
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/ElParaisoDelSabor.Client.sourcelink.json
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.rex8exvj30.wasm
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.bkmbyqgn0p.pdb
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.rex8exvj30.wasm.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.bkmbyqgn0p.pdb.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/w0tpemv94j-{0}-rex8exvj30-rex8exvj30.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/k844u6l5c4-{0}-bkmbyqgn0p-bkmbyqgn0p.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/lw3l5s7d9n-{0}-o4x2qvii48-o4x2qvii48.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.j2sxmptsoe.wasm
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.7uw26yepqn.pdb
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.j2sxmptsoe.wasm.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/bin/Debug/net10.0/wwwroot/_framework/ElParaisoDelSabor.Client.7uw26yepqn.pdb.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/w0tpemv94j-{0}-j2sxmptsoe-j2sxmptsoe.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/k844u6l5c4-{0}-7uw26yepqn-7uw26yepqn.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor.Client/obj/Debug/net10.0/compressed/lw3l5s7d9n-{0}-z8npzjyhb6-z8npzjyhb6.gz

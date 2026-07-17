@@ -1,13 +1,47 @@
 .admin-container[b-zizhhmw1gy] {
-    padding: 1.5rem;
+    padding: 1rem;
     max-width: 1200px;
     margin: 0 auto;
 }
 .admin-header[b-zizhhmw1gy] {
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.5rem;
     border-bottom: 2px solid #eee;
-    padding-bottom: 1rem;
 }
+.admin-header h2[b-zizhhmw1gy] {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+
+/* Sistema de Pestañas Responsivo */
+.admin-tabs[b-zizhhmw1gy] {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+    overflow-x: auto; /* Permite scroll horizontal en teléfonos si las pestañas no caben */
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #ddd;
+}
+.tab-btn[b-zizhhmw1gy] {
+    background: #f1f3f5;
+    border: 1px solid #dee2e6;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    color: #495057;
+    transition: all 0.2s ease;
+}
+.tab-btn.active[b-zizhhmw1gy] {
+    background: #512da8;
+    color: white;
+    border-color: #512da8;
+}
+
+/* Vistas de Contenido */
 .admin-grid[b-zizhhmw1gy] {
     display: flex;
     flex-direction: column;
@@ -15,55 +49,116 @@
 }
 .admin-card[b-zizhhmw1gy] {
     background: #ffffff;
-    padding: 1.5rem;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    padding: 1.25rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+.single-view[b-zizhhmw1gy] {
+    width: 100%;
+    min-height: 200px;
 }
 .admin-card h3[b-zizhhmw1gy] {
     margin-top: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
     color: #512da8;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     border-bottom: 1px solid #f0f0f0;
     padding-bottom: 0.5rem;
 }
+
+/* Formularios */
+.form-group[b-zizhhmw1gy] {
+    margin-bottom: 1rem;
+}
+.form-group label[b-zizhhmw1gy] {
+    display: block;
+    margin-bottom: 0.4rem;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+.form-control[b-zizhhmw1gy] {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    box-sizing: border-box;
+}
 .btn-admin-add[b-zizhhmw1gy] {
-    background-color: #4caf50 !important; /* Color verde de éxito comercial */
+    width: 100%;
+    background-color: #2e7d32;
+    color: white;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+.btn-admin-add:disabled[b-zizhhmw1gy] {
+    background-color: #a5d6a7;
+    cursor: not-allowed;
+}
+
+/* Tablas */
+.table-responsive[b-zizhhmw1gy] {
+    overflow-x: auto;
+    max-height: 400px;
 }
 .admin-table[b-zizhhmw1gy] {
     width: 100%;
     border-collapse: collapse;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
 }
 .admin-table th[b-zizhhmw1gy], .admin-table td[b-zizhhmw1gy] {
-    padding: 0.75rem;
+    padding: 0.65rem;
     text-align: left;
     border-bottom: 1px solid #eee;
 }
 .admin-table th[b-zizhhmw1gy] {
     background-color: #f8f9fa;
-    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 .table-desc[b-zizhhmw1gy] {
     margin: 2px 0 0 0;
-    font-size: 0.8rem;
-    color: #666;
+    font-size: 0.75rem;
+    color: #777;
 }
 .table-price[b-zizhhmw1gy] {
     font-weight: bold;
     color: #2e7d32;
 }
-.table-responsive[b-zizhhmw1gy] {
-    overflow-x: auto;
-    max-height: 450px; /* Habilita scroll vertical si el menú es muy largo */
+
+/* Botones de Acción dentro de la tabla */
+.btn-action[b-zizhhmw1gy] {
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    border: none;
+    font-size: 0.75rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+.btn-disable[b-zizhhmw1gy] {
+    background-color: #ffebee;
+    color: #c62828;
+    border: 1px solid #ffcdd2;
+}
+.btn-disable:hover[b-zizhhmw1gy] {
+    background-color: #c62828;
+    color: white;
 }
 
-/* Regla responsiva para pantallas de computadoras o tablets de desarrollo */
+/* Ajuste de dos columnas para pantallas de escritorio */
 @media (min-width: 768px) {
     .admin-grid[b-zizhhmw1gy] {
-        flex-direction: row; /* Divide la interfaz en 2 columnas perfectas */
+        flex-direction: row;
     }
     .admin-card[b-zizhhmw1gy] {
-        flex: 1; /* Ambas tarjetas ocupan el mismo ancho exacto */
+        flex: 1;
+    }
+    .admin-header h2[b-zizhhmw1gy] {
+        font-size: 1.8rem;
     }
 }

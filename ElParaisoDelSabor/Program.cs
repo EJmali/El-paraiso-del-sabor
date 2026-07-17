@@ -25,12 +25,11 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<CarritoService>();
 builder.Services.AddSingleton<DollarService>();
-
-builder.Services.AddHttpClient<DollarBackgroundService>(client =>
+// Registramos el cliente HTTP con un nombre clave
+builder.Services.AddHttpClient("DolarApi", client =>
 {
     client.BaseAddress = new Uri("https://ve.dolarapi.com/v1/dolares/oficial");
 });
-
 builder.Services.AddHostedService<DollarBackgroundService>();
 
 // autenticación personalizada: Scoped para que cada celular tenga su sesión independiente

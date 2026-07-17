@@ -235,5 +235,5 @@
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/ElParaisoDelSabor.sourcelink.json
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/scopedcss/Components/Pages/Home.razor.rz.scp.css
 /data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/scopedcss/Components/Pages/Nosotros.razor.rz.scp.css
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/h91m76hnh3-{0}-zsopa2nw7n-zsopa2nw7n.gz
-/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/p723dxof1n-{0}-zsopa2nw7n-zsopa2nw7n.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/h91m76hnh3-{0}-f6zvy7v3d0-f6zvy7v3d0.gz
+/data/data/com.termux/files/home/UNEFA/proyecto/ElParaisoDelSabor/ElParaisoDelSabor/obj/Debug/net10.0/compressed/p723dxof1n-{0}-f6zvy7v3d0-f6zvy7v3d0.gz

@@ -11,9 +11,9 @@
     <header class="catalog-header">
         <h1>🍨 Nuestro Menú de Paraíso 🍨</h1>
         <p>Helados artesanales preparados con los mejores ingredientes.</p>
-        @if (tasaDollar > 0)
+        @if (DollarService.PrecioActual > 0)
         {
-            <div class="rate-badge">Tasa BCV: Bs. @tasaDollar.ToString("N2")</div>
+            <div class="rate-badge">Tasa BCV: Bs. @DollarService.PrecioActual.ToString("N2")</div>
         }
     </header>
 
@@ -44,9 +44,9 @@
                         <div class="card-footer">
                             <div class="price-block">
                                 <span class="price-usd">$@helado.Precio.ToString("F2")</span>
-                                @if (tasaDollar > 0)
+                                @if (DollarService.PrecioActual > 0)
                                 {
-                                    <span class="price-bs">Bs. @((helado.Precio * tasaDollar).ToString("N2"))</span>
+                                    <span class="price-bs">Bs. @((helado.Precio * DollarService.PrecioActual).ToString("N2"))</span>
                                 }
                             </div>
                             <button class="btn-add" @onclick="() => AgregarAlCarrito(helado)">
@@ -62,12 +62,10 @@
 
 @code {
     private List<Producto>? productos;
-    private decimal tasaDollar;
 
     protected override async Task OnInitializedAsync()
     {
         productos = await ProductoService.GetProductosAsync();
-        tasaDollar = DollarService.PrecioActual;
     }
 
     private void AgregarAlCarrito(Producto helado)

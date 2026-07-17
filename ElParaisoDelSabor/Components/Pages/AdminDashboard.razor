@@ -1,5 +1,7 @@
 @page "/admin/dashboard"
 @rendermode InteractiveServer
+@using ElParaisoDelSabor.Services
+@using ElParaisoDelSabor.Data.Models
 @inject IProductoService ProductoService
 @inject AuthService AuthService
 @inject NavigationManager Navigation
@@ -7,7 +9,6 @@
 <PageTitle>Panel de Administración - El Paraíso del Sabor</PageTitle>
 
 <div class="admin-container">
-    <!-- Bloque de seguridad perimetral -->
     @if (!AuthService.EstaAutenticado || AuthService.UsuarioActual?.Rol != "Admin")
     {
         <div class="alert alert-danger text-center">
@@ -19,100 +20,154 @@
     else
     {
         <header class="admin-header">
-            <h2>⚙️ Panel de Control del Administrador</h2>
-            <p>Bienvenido, <strong>@AuthService.UsuarioActual?.Nombre</strong>. Desde aquí gestionas el menú real.</p>
+            <h2>⚙️ Panel de Control</h2>
+            <p>Bienvenido, <strong>@AuthService.UsuarioActual?.Nombre</strong></p>
         </header>
 
-        <div class="admin-grid">
-            <!-- COLUMNA 1: Formulario para añadir nuevos Helados -->
-            <section class="admin-card">
-                <h3>🍨 Añadir Nuevo Sabor al Menú</h3>
-                
-                @if (!string.IsNullOrEmpty(mensajeError))
-                {
-                    <div class="alert alert-danger">⚠️ @mensajeError</div>
-                }
-                @if (!string.IsNullOrEmpty(mensajeExito))
-                {
-                    <div class="alert alert-success">✅ @mensajeExito</div>
-                }
+        <!-- Barra de Navegación por Pestañas (Tabs) -->
+        <nav class="admin-tabs">
+            <button class="tab-btn @(vistaActual == Vista.Existencias ? "active" : "")" 
+                    @onclick="() => CambiarVista(Vista.Existencias)">
+                📦 Existencias
+            </button>
+            <button class="tab-btn @(vistaActual == Vista.Agotados ? "active" : "")" 
+                    @onclick="() => CambiarVista(Vista.Agotados)">
+                🚫 Inactivos / Agotados
+            </button>
+            <button class="tab-btn @(vistaActual == Vista.Pedidos ? "active" : "")" 
+                    @onclick="() => CambiarVista(Vista.Pedidos)">
+                📋 Pedidos
+            </button>
+            <button class="tab-btn @(vistaActual == Vista.Clientes ? "active" : "")" 
+                    @onclick="() => CambiarVista(Vista.Clientes)">
+                👥 Clientes
+            </button>
+        </nav>
 
-                <EditForm Model="@nuevoHelado" OnValidSubmit="ManejarAgregarProducto">
-                    <div class="form-group">
-                        <label>Nombre del Helado / Sabor:</label>
-                        <input type="text" class="form-control" @bind="nuevoHelado.Nombre" placeholder="Ej. Chocolate Supremo" required />
+        <div class="admin-content">
+            @switch (vistaActual)
+            {
+                case Vista.Existencias:
+                    <div class="admin-grid">
+                        <!-- Formulario para añadir nuevos Helados -->
+                        <section class="admin-card">
+                            <h3>🍨 Añadir Nuevo Sabor al Menú</h3>
+                            
+                            @if (!string.IsNullOrEmpty(mensajeError))
+                            {
+                                <div class="alert alert-danger">⚠️ @mensajeError</div>
+                            }
+                            @if (!string.IsNullOrEmpty(mensajeExito))
+                            {
+                                <div class="alert alert-success">✅ @mensajeExito</div>
+                            }
+
+                            <EditForm Model="@nuevoHelado" OnValidSubmit="ManejarAgregarProducto">
+                                <div class="form-group">
+                                    <label>Nombre del Helado / Sabor:</label>
+                                    <input type="text" class="form-control" @bind="nuevoHelado.Nombre" placeholder="Ej. Chocolate Supremo" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Descripción de los ingredientes:</label>
+                                    <textarea class="form-control" @bind="nuevoHelado.Descripcion" placeholder="Ej. Crema de cacao belga..." rows="3" required></textarea>
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Precio de Venta ($):</label>
+                                    <input type="number" step="0.01" class="form-control" @bind="nuevoHelado.Precio" placeholder="0.00" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>URL de la Imagen (Opcional):</label>
+                                    <input type="text" class="form-control" @bind="nuevoHelado.ImagenUrl" placeholder="https://ejemplo.com/imagen.png" />
+                                </div>
+
+                                <button type="submit" class="btn-admin-add" disabled="@estaCargando">
+                                    @(estaCargando ? "Guardando en BD..." : "Publicar en Catálogo 🚀")
+                                </button>
+                            </EditForm>
+                        </section>
+
+                        <!-- Vista previa del Inventario Activo -->
+                        <section class="admin-card">
+                            <h3>📋 Menú Activo en Catálogo</h3>
+                            @if (listadoProductos == null)
+                            {
+                                <p>Cargando existencias...</p>
+                            }
+                            else if (!listadoProductos.Any())
+                            {
+                                <p class="text-muted">No hay helados activos en el catálogo.</p>
+                            }
+                            else
+                            {
+                                <div class="table-responsive">
+                                    <table class="admin-table">
+                                        <thead>
+                                            <tr>
+                                                <th>Sabor</th>
+                                                <th>Precio</th>
+                                                <th>Acciones</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var prod in listadoProductos)
+                                            {
+                                                <tr>
+                                                    <td>
+                                                        <strong>@prod.Nombre</strong>
+                                                        <p class="table-desc">@prod.Descripcion</p>
+                                                    </td>
+                                                    <td class="table-price">$@prod.Precio.ToString("F2")</td>
+                                                    <td>
+                                                        <button class="btn-action btn-disable" @onclick="() => DesactivarProducto(prod.Id)">
+                                                            Ocultar 🚫
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            }
+                        </section>
                     </div>
+                    break;
 
-                    <div class="form-group">
-                        <label>Descripción de los ingredientes:</label>
-                        <textarea class="form-control" @bind="nuevoHelado.Descripcion" placeholder="Ej. Crema de cacao belga con chispas..." rows="3" required></textarea>
-                    </div>
+                case Vista.Agotados:
+                    <section class="admin-card single-view">
+                        <h3>🚫 Sabores Desactivados (Borrado Lógico)</h3>
+                        <p class="text-muted">Aquí aparecerán los helados ocultos del catálogo. Puedes reactivarlos cuando vuelva a haber inventario de ingredientes.</p>
+                        <!-- Aquí mapearemos los productos con Activo == false -->
+                        <em class="text-secondary">Sección lista para conectar el nuevo método del servicio.</em>
+                    </section>
+                    break;
 
-                    <div class="form-group">
-                        <label>Precio de Venta ($):</label>
-                        <input type="number" step="0.01" class="form-control" @bind="nuevoHelado.Precio" placeholder="0.00" required />
-                    </div>
+                case Vista.Pedidos:
+                    <section class="admin-card single-view">
+                        <h3>📋 Registro de Ventas y Pedidos</h3>
+                        <p class="text-muted">Historial en tiempo real de los pedidos solicitados por los clientes en la tienda.</p>
+                        <em class="text-secondary">Sección pendiente por definir modelo de datos de facturación.</em>
+                    </section>
+                    break;
 
-                    <div class="form-group">
-                        <label>URL de la Imagen (Opcional):</label>
-                        <input type="text" class="form-control" @bind="nuevoHelado.ImagenUrl" placeholder="images/sabores/chocolate.png" />
-                    </div>
-
-                    <button type="submit" class="btn-auth btn-admin-add" disabled="@estaCargando">
-                        @if (estaCargando)
-                        {
-                            <span>Guardando en BD...</span>
-                        }
-                        else
-                        {
-                            <span>Publicar en Catálogo 🚀</span>
-                        }
-                    </button>
-                </EditForm>
-            </section>
-
-            <!-- COLUMNA 2: Vista previa del Inventario Actual -->
-            <section class="admin-card">
-                <h3>📋 Vista Previa del Menú Vigente</h3>
-                @if (listadoProductos == null)
-                {
-                    <p>Cargando existencias...</p>
-                }
-                else if (!listadoProductos.Any())
-                {
-                    <p class="text-muted">El catálogo está completamente vacío en la base de datos.</p>
-                }
-                else
-                {
-                    <div class="table-responsive">
-                        <table class="admin-table">
-                            <thead>
-                                <tr>
-                                    <th>Sabor</th>
-                                    <th>Precio</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var prod in listadoProductos)
-                                {
-                                    <tr>
-                                        <td>
-                                            <strong>@prod.Nombre</strong>
-                                            <p class="table-desc">@prod.Descripcion</p>
-                                        </td>
-                                        <td class="table-price">$@prod.Precio.ToString("F2")</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                }
-            </section>
+                case Vista.Clientes:
+                    <section class="admin-card single-view">
+                        <h3>👥 Clientes Registrados</h3>
+                        <p class="text-muted">Base de datos de usuarios con cuentas activas en la plataforma.</p>
+                        <em class="text-secondary">Sección pendiente por conectar con el servicio de base de datos de usuarios.</em>
+                    </section>
+                    break;
+            }
         </div>
     }
 </div>
 
 @code {
+    private enum Vista { Existencias, Agotados, Pedidos, Clientes }
+    private Vista vistaActual = Vista.Existencias;
+
     private Producto nuevoHelado = new();
     private List<Producto>? listadoProductos;
     private string mensajeError = string.Empty;
@@ -121,7 +176,6 @@
 
     protected override async Task OnInitializedAsync()
     {
-        // Solo cargamos los productos si el usuario es realmente el administrador
         if (AuthService.EstaAutenticado && AuthService.UsuarioActual?.Rol == "Admin")
         {
             await CargarProductos();
@@ -131,6 +185,13 @@
     private async Task CargarProductos()
     {
         listadoProductos = await ProductoService.GetProductosAsync();
+    }
+
+    private void CambiarVista(Vista nuevaVista)
+    {
+        vistaActual = nuevaVista;
+        mensajeError = string.Empty;
+        mensajeExito = string.Empty;
     }
 
     private async Task ManejarAgregarProducto()
@@ -145,21 +206,27 @@
         }
 
         estaCargando = true;
-
-        // Intentamos guardar de forma asíncrona en el archivo SQLite
         bool guardado = await ProductoService.GuardarProductoAsync(nuevoHelado);
-        
         estaCargando = false;
 
         if (guardado)
         {
-            mensajeExito = $"¡{nuevoHelado.Nombre} ha sido añadido con éxito al catálogo!";
-            nuevoHelado = new Producto(); // Limpiamos el formulario para el siguiente registro
-            await CargarProductos(); // Refrescamos la tabla lateral en tiempo real
+            mensajeExito = $"¡{nuevoHelado.Nombre} ha sido añadido con éxito!";
+            nuevoHelado = new Producto();
+            await CargarProductos();
         }
         else
         {
             mensajeError = "Ya existe un producto registrado con ese mismo nombre.";
+        }
+    }
+
+    private async Task DesactivarProducto(int id)
+    {
+        bool eliminado = await ProductoService.EliminarLogicoAsync(id);
+        if (eliminado)
+        {
+            await CargarProductos();
         }
     }
 }
