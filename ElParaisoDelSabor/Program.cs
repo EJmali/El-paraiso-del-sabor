@@ -25,6 +25,7 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddScoped<IProductoService, ProductoService>();
 builder.Services.AddScoped<CarritoService>();
 builder.Services.AddSingleton<DollarService>();
+builder.Services.AddScoped<IPedidoService, PedidoService>();
 // Registramos el cliente HTTP con un nombre clave
 builder.Services.AddHttpClient("DolarApi", client =>
 {

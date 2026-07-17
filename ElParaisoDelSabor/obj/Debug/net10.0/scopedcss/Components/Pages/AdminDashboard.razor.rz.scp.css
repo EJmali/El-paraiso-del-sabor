@@ -199,3 +199,48 @@
 .btn-cancel:hover[b-zizhhmw1gy] {
     background-color: #d6d6d6;
 }
+.pedido-items-list[b-zizhhmw1gy] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 0.85rem;
+    text-align: left;
+}
+
+.badge-status[b-zizhhmw1gy] {
+    padding: 0.25rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: bold;
+    display: inline-block;
+}
+
+.status-pendiente[b-zizhhmw1gy] {
+    background-color: #fff8e1;
+    color: #ffb300;
+    border: 1px solid #ffe082;
+}
+
+.status-procesando[b-zizhhmw1gy] {
+    background-color: #e3f2fd;
+    color: #0d47a1;
+    border: 1px solid #90caf9;
+}
+
+.status-enviado[b-zizhhmw1gy] {
+    background-color: #f3e5f5;
+    color: #4a148c;
+    border: 1px solid #ce93d8;
+}
+
+.status-entregado[b-zizhhmw1gy] {
+    background-color: #e8f5e9;
+    color: #1b5e20;
+    border: 1px solid #a5d6a7;
+}
+
+.status-cancelado[b-zizhhmw1gy] {
+    background-color: #ffebee;
+    color: #b71c1c;
+    border: 1px solid #ef9a9a;
+}

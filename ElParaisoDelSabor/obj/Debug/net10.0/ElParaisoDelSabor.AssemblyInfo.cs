@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElParaisoDelSabor")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+be4cbc99ba7942cd87e2e4a471fb0d886479308e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bf95a83a0d66c3ef4bc35e1bdf06a508d1b01e7")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElParaisoDelSabor")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElParaisoDelSabor")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

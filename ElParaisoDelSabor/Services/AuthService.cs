@@ -1,4 +1,4 @@
-using ElParaisoDelSabor.Data; // 👈 Asegúrate de que apunte a tu carpeta Data
+using ElParaisoDelSabor.Data;
 using ElParaisoDelSabor.Data.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -40,7 +40,7 @@ public class AuthService
     public bool RegistrarUsuario(string username, string nombre, string password)
     {
         using var scope = _scopeFactory.CreateScope();
-        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>(); // 👈 Cambia por el nombre de tu DbContext
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
 
         // Evitamos duplicados en la base de datos
         if (context.Usuarios.Any(u => u.Username.ToLower() == username.ToLower()))
@@ -52,12 +52,12 @@ public class AuthService
         {
             Username = username.ToLower(),
             Nombre = nombre,
-            Password = password, // Nota: Para producción usarías hashing, para el prototipo de mañana es perfecto texto plano
+            Password = password,
             Rol = "Cliente"
         };
 
         context.Usuarios.Add(nuevoUsuario);
-        context.SaveChanges(); // 👈 Impacto real en el archivo .db de SQLite
+        context.SaveChanges();
         return true;
     }
 

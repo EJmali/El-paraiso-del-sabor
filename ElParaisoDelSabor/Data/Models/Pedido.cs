@@ -8,10 +8,11 @@ public class Pedido
     public int Id { get; set; }
 
     [Required]
-    public string UsuarioId { get; set; } = string.Empty;
+    public int UsuarioId { get; set; }
+    //public string UsuarioId { get; set; } = string.Empty;
     
     [ForeignKey(nameof(UsuarioId))]
-    public ApplicationUser Usuario { get; set; } = null!;
+    public Usuario Usuario { get; set; } = null!;
 
     public DateTime FechaCreacion { get; set; } = DateTime.UtcNow;
 

@@ -1,6 +1,11 @@
 @page "/carrito"
+@using ElParaisoDelSabor.Data.Models
+@using ElParaisoDelSabor.Services
 @rendermode InteractiveServer
 @inject CarritoService CarritoService
+@inject IPedidoService PedidoService
+@inject AuthService AuthService
+@inject NavigationManager NavigationManager
 @implements IDisposable
 
 <PageTitle>Tu Carrito - El Paraíso del Sabor</PageTitle>
@@ -72,7 +77,6 @@
 @code {
     protected override void OnInitialized()
     {
-        // Nos suscribimos para que si el estado cambia, la página se refresque sola
         CarritoService.OnChange += ActualizarVista;
     }
 
@@ -88,10 +92,37 @@
         CarritoService.LimpiarCarrito();
     }
 
-    private void ProcesarCompra()
+    private async Task ProcesarCompra()
     {
-        // Aquí conectaremos la pasarela o la orden de entrega en el futuro
-        Console.WriteLine("[Termux Log] Procesando orden por un total de: $" + CarritoService.ObtenerPrecioTotal());
+        // Verificar usando tu propio AuthService
+        if (!AuthService.EstaAutenticado || AuthService.UsuarioActual == null)
+        {
+            // Lo mandamos a TU formulario de login personalizado
+            NavigationManager.NavigateTo("login");
+            return;
+        }
+
+        // Armamos el pedido con el ID entero de tu usuario
+        var nuevoPedido = new Pedido
+        {
+            UsuarioId = AuthService.UsuarioActual.Id,
+            FechaCreacion = DateTime.UtcNow,
+            Total = CarritoService.ObtenerPrecioTotal(),
+            Estado = EstadoPedido.Pendiente,
+            Detalles = CarritoService.Items.Select(item => new DetallePedido
+            {
+                ProductoId = item.Producto.Id,
+                Cantidad = item.Cantidad,
+                PrecioUnitario = item.Producto.Precio
+            }).ToList()
+        };
+
+        bool guardado = await PedidoService.CrearPedidoAsync(nuevoPedido);
+        if (guardado)
+        {
+            CarritoService.LimpiarCarrito();
+            NavigationManager.NavigateTo("catalogo");
+        }
     }
 
     public void Dispose()
