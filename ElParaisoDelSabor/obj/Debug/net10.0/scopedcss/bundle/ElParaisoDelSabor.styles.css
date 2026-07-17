@@ -565,6 +565,43 @@ main[b-87i9rfempr] {
         font-size: 1.8rem;
     }
 }
+.action-buttons[b-zizhhmw1gy] {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.btn-edit[b-zizhhmw1gy] {
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+}
+
+.btn-edit:hover[b-zizhhmw1gy] {
+    background-color: #e65100;
+    color: white;
+}
+
+.btn-admin-update[b-zizhhmw1gy] {
+    background-color: #0288d1 !important; /* Azul para edición comercial */
+}
+
+.btn-cancel[b-zizhhmw1gy] {
+    width: 100%;
+    background-color: #e0e0e0;
+    color: #424242;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover[b-zizhhmw1gy] {
+    background-color: #d6d6d6;
+}
 /* /Components/Pages/Carrito.razor.rz.scp.css */
 .cart-page-container[b-d8yud8as0q] {
     padding: 2rem 1rem;

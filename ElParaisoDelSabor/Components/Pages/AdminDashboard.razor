@@ -66,24 +66,24 @@
     <EditForm Model="@nuevoHelado" OnValidSubmit="ManejarAgregarProducto">
         <!-- ... (los inputs se quedan exactamente igual ya que usan @bind) ... -->
         <div class="form-group">
-                                    <label>Nombre del Helado / Sabor:</label>
-                                    <input type="text" class="form-control" @bind="nuevoHelado.Nombre" placeholder="Ej. Chocolate Supremo" required />
-                                </div>
+            <label>Nombre del Helado / Sabor:</label>
+            <input type="text" class="form-control" @bind="nuevoHelado.Nombre" placeholder="Ej. Chocolate Supremo" required />
+        </div>
 
-                                <div class="form-group">
-                                    <label>Descripción de los ingredientes:</label>
-                                    <textarea class="form-control" @bind="nuevoHelado.Descripcion" placeholder="Ej. Crema de cacao belga..." rows="3" required></textarea>
-                                </div>
+        <div class="form-group">
+            <label>Descripción de los ingredientes:</label>
+            <textarea class="form-control" @bind="nuevoHelado.Descripcion" placeholder="Ej. Crema de cacao belga..." rows="3" required></textarea>
+        </div>
 
-                                <div class="form-group">
-                                    <label>Precio de Venta ($):</label>
-                                    <input type="number" step="0.01" class="form-control" @bind="nuevoHelado.Precio" placeholder="0.00" required />
-                                </div>
+        <div class="form-group">
+            <label>Precio de Venta ($):</label>
+            <input type="number" step="0.01" class="form-control" @bind="nuevoHelado.Precio" placeholder="0.00" required />
+        </div>
 
-                                <div class="form-group">
-                                    <label>URL de la Imagen (Opcional):</label>
-                                    <input type="text" class="form-control" @bind="nuevoHelado.ImagenUrl" placeholder="https://ejemplo.com/imagen.png" />
-                                </div>
+        <div class="form-group">
+            <label>URL de la Imagen (Opcional):</label>
+            <input type="text" class="form-control" @bind="nuevoHelado.ImagenUrl" placeholder="https://ejemplo.com/imagen.png" />
+        </div>
                                 
         <!-- Botón de Envío Dinámico -->
         <button type="submit" class="btn-admin-add @(nuevoHelado.Id != 0 ? "btn-admin-update" : "")" disabled="@estaCargando">
@@ -277,8 +277,11 @@
 
         if (guardado)
         {
-            mensajeExito = $"¡{nuevoHelado.Nombre} ha sido añadido con éxito!";
-            nuevoHelado = new Producto();
+            mensajeExito = nuevoHelado.Id == 0 
+                ? $"¡{nuevoHelado.Nombre} ha sido añadido con éxito!" 
+                : "¡Cambios guardados correctamente!";
+                
+            LimpiarFormulario(); // Resetea el ID a 0 y limpia campos
             await CargarProductos();
         }
         else

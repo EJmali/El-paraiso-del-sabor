@@ -162,3 +162,40 @@
         font-size: 1.8rem;
     }
 }
+.action-buttons {
+    display: flex;
+    gap: 0.4rem;
+}
+
+.btn-edit {
+    background-color: #fff3e0;
+    color: #e65100;
+    border: 1px solid #ffe0b2;
+}
+
+.btn-edit:hover {
+    background-color: #e65100;
+    color: white;
+}
+
+.btn-admin-update {
+    background-color: #0288d1 !important; /* Azul para edición comercial */
+}
+
+.btn-cancel {
+    width: 100%;
+    background-color: #e0e0e0;
+    color: #424242;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+    margin-top: 0.5rem;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover {
+    background-color: #d6d6d6;
+}
