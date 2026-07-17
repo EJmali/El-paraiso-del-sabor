@@ -7,7 +7,7 @@ Sistema modular de arquitectura desacoplada para la automatización de inventari
 La solución se rige bajo principios de diseño limpio, desacoplamiento estricto de responsabilidades y ejecución asíncrona no bloqueante (Non-blocking Asynchronous I/O). Toda la carga computacional pesada y el renderizado del DOM se centralizan en el servidor, utilizando canales de comunicación bidireccional mediante WebSockets a través de la infraestructura de **SignalR**.
 
 ### 💻 Stack Tecnológico
-*   **Core Engine:** .NET 8.0 / C# 12
+*   **Core Engine:** .NET 10.0 / C# 12
 *   **Framework de Interfaz:** Blazor Server SPA (Single Page Application)
 *   **Capa de Persistencia (ORM):** Entity Framework Core Code-First
 *   **Motor de Base de Datos:** SQLite Relacional Embebido
