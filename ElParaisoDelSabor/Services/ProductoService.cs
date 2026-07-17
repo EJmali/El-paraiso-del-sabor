@@ -65,4 +65,24 @@ public class ProductoService : IProductoService
         producto.Activo = false; // Desactivado, oculto del catálogo
         return await context.SaveChangesAsync() > 0;
     }
+    // Obtener solo los helados desactivados
+    public async Task<List<Producto>> GetProductosInactivosAsync()
+    {
+        using var context = await _contextFactory.CreateDbContextAsync();
+        return await context.Productos
+            .Where(p => !p.Activo) // Trae solo los que tengan Activo == false
+            .ToListAsync();
+    }
+    
+    // Reactivar un helado para que vuelva al catálogo
+    public async Task<bool> ReactivarProductoAsync(int id)
+    {
+        using var context = await _contextFactory.CreateDbContextAsync();
+        var producto = await context.Productos.FindAsync(id);
+        
+        if (producto == null) return false;
+    
+        producto.Activo = true; // Volvemos a activar
+        return await context.SaveChangesAsync() > 0;
+    }
 }

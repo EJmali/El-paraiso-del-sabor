@@ -51,19 +51,21 @@
                     <div class="admin-grid">
                         <!-- Formulario para añadir nuevos Helados -->
                         <section class="admin-card">
-                            <h3>🍨 Añadir Nuevo Sabor al Menú</h3>
-                            
-                            @if (!string.IsNullOrEmpty(mensajeError))
-                            {
-                                <div class="alert alert-danger">⚠️ @mensajeError</div>
-                            }
-                            @if (!string.IsNullOrEmpty(mensajeExito))
-                            {
-                                <div class="alert alert-success">✅ @mensajeExito</div>
-                            }
+    <!-- Título Dinámico -->
+    <h3>🍨 @(nuevoHelado.Id == 0 ? "Añadir Nuevo Sabor al Menú" : $"Modificar: {nuevoHelado.Nombre}")</h3>
+    
+    @if (!string.IsNullOrEmpty(mensajeError))
+    {
+        <div class="alert alert-danger">⚠️ @mensajeError</div>
+    }
+    @if (!string.IsNullOrEmpty(mensajeExito))
+    {
+        <div class="alert alert-success">✅ @mensajeExito</div>
+    }
 
-                            <EditForm Model="@nuevoHelado" OnValidSubmit="ManejarAgregarProducto">
-                                <div class="form-group">
+    <EditForm Model="@nuevoHelado" OnValidSubmit="ManejarAgregarProducto">
+        <!-- ... (los inputs se quedan exactamente igual ya que usan @bind) ... -->
+        <div class="form-group">
                                     <label>Nombre del Helado / Sabor:</label>
                                     <input type="text" class="form-control" @bind="nuevoHelado.Nombre" placeholder="Ej. Chocolate Supremo" required />
                                 </div>
@@ -82,12 +84,28 @@
                                     <label>URL de la Imagen (Opcional):</label>
                                     <input type="text" class="form-control" @bind="nuevoHelado.ImagenUrl" placeholder="https://ejemplo.com/imagen.png" />
                                 </div>
+                                
+        <!-- Botón de Envío Dinámico -->
+        <button type="submit" class="btn-admin-add @(nuevoHelado.Id != 0 ? "btn-admin-update" : "")" disabled="@estaCargando">
+            @if (estaCargando)
+            {
+                <span>Guardando cambios...</span>
+            }
+            else
+            {
+                <span>@(nuevoHelado.Id == 0 ? "Publicar en Catálogo 🚀" : "Guardar Cambios 💾")</span>
+            }
+        </button>
 
-                                <button type="submit" class="btn-admin-add" disabled="@estaCargando">
-                                    @(estaCargando ? "Guardando en BD..." : "Publicar en Catálogo 🚀")
-                                </button>
-                            </EditForm>
-                        </section>
+        <!-- Botón extra para salir del modo edición -->
+        @if (nuevoHelado.Id != 0)
+        {
+            <button type="button" class="btn-cancel" @onclick="LimpiarFormulario">
+                Cancelar Edición ❌
+            </button>
+        }
+    </EditForm>
+</section>
 
                         <!-- Vista previa del Inventario Activo -->
                         <section class="admin-card">
@@ -121,6 +139,9 @@
                                                     </td>
                                                     <td class="table-price">$@prod.Precio.ToString("F2")</td>
                                                     <td>
+                                                        <button class="btn-action btn-edit" @onclick="() => SeleccionarParaEditar(prod)">
+                                                            Editar ✏️
+                                                        </button>
                                                         <button class="btn-action btn-disable" @onclick="() => DesactivarProducto(prod.Id)">
                                                             Ocultar 🚫
                                                         </button>
@@ -137,10 +158,49 @@
 
                 case Vista.Agotados:
                     <section class="admin-card single-view">
-                        <h3>🚫 Sabores Desactivados (Borrado Lógico)</h3>
-                        <p class="text-muted">Aquí aparecerán los helados ocultos del catálogo. Puedes reactivarlos cuando vuelva a haber inventario de ingredientes.</p>
-                        <!-- Aquí mapearemos los productos con Activo == false -->
-                        <em class="text-secondary">Sección lista para conectar el nuevo método del servicio.</em>
+                        <h3>🚫 Sabores Desactivados (Agotados)</h3>
+                        <p class="text-muted">Helados ocultos del catálogo. Puedes devolverlos al menú al instante.</p>
+                        
+                        @if (listadoInactivos == null)
+                        {
+                            <p>Cargando archivo de bajas...</p>
+                        }
+                        else if (!listadoInactivos.Any())
+                        {
+                            <p class="text-success fw-bold">🎉 ¡No hay sabores agotados! Todo está disponible en el catálogo.</p>
+                        }
+                        else
+                        {
+                            <div class="table-responsive">
+                                <table class="admin-table">
+                                    <thead>
+                                        <tr>
+                                            <th>Sabor</th>
+                                            <th>Precio anterior</th>
+                                            <th>Acción</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var prod in listadoInactivos)
+                                        {
+                                            <tr>
+                                                <!-- Usamos las clases css que ya tenías -->
+                                                <td>
+                                                    <strong>@prod.Nombre</strong>
+                                                    <p class="table-desc">@prod.Descripcion</p>
+                                                </td>
+                                                <td class="table-price">$@prod.Precio.ToString("F2")</td>
+                                                <td>
+                                                    <button class="btn-action btn-enable" @onclick="() => VolverAActivar(prod.Id)">
+                                                        Reactivar 🛒
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
                     </section>
                     break;
 
@@ -170,6 +230,7 @@
 
     private Producto nuevoHelado = new();
     private List<Producto>? listadoProductos;
+    private List<Producto>? listadoInactivos;
     private string mensajeError = string.Empty;
     private string mensajeExito = string.Empty;
     private bool estaCargando = false;
@@ -187,11 +248,16 @@
         listadoProductos = await ProductoService.GetProductosAsync();
     }
 
-    private void CambiarVista(Vista nuevaVista)
+    private async Task CambiarVista(Vista nuevaVista)
     {
         vistaActual = nuevaVista;
         mensajeError = string.Empty;
         mensajeExito = string.Empty;
+    
+        if (vistaActual == Vista.Agotados)
+        {
+            await CargarInactivos();
+        }
     }
 
     private async Task ManejarAgregarProducto()
@@ -229,4 +295,44 @@
             await CargarProductos();
         }
     }
+    
+    private async Task CargarInactivos()
+    {
+        listadoInactivos = await ProductoService.GetProductosInactivosAsync();
+    }
+    
+    private async Task VolverAActivar(int id)
+    {
+        bool reactivado = await ProductoService.ReactivarProductoAsync(id);
+        if (reactivado)
+        {
+            await CargarInactivos(); // Refresca la lista de agotados
+            await CargarProductos(); // Refresca la lista de existencias por si acaso
+        }
+    }
+
+    private void SeleccionarParaEditar(Producto prod)
+{
+    // Clonamos el objeto para no alterar la lista de la tabla en tiempo real mientras el usuario escribe
+    nuevoHelado = new Producto
+    {
+        Id = prod.Id,
+        Nombre = prod.Nombre,
+        Descripcion = prod.Descripcion,
+        Precio = prod.Precio,
+        ImagenUrl = prod.ImagenUrl,
+        Activo = prod.Activo
+    };
+    
+    mensajeError = string.Empty;
+    mensajeExito = string.Empty;
+}
+
+private void LimpiarFormulario()
+{
+    nuevoHelado = new Producto();
+    mensajeError = string.Empty;
+    mensajeExito = string.Empty;
+}
+
 }
