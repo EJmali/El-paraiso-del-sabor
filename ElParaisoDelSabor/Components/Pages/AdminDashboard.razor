@@ -304,12 +304,50 @@
                     break;
 
                 case Vista.Clientes:
-                    <section class="admin-card single-view">
-                        <h3>👥 Clientes Registrados</h3>
-                        <p class="text-muted">Base de datos de usuarios con cuentas activas en la plataforma.</p>
-                        <em class="text-secondary">Sección pendiente por conectar con el servicio de base de datos de usuarios.</em>
-                    </section>
-                    break;
+    <section class="admin-card single-view">
+        <h3>👥 Usuarios y Clientes Registrados</h3>
+        <p class="text-muted">Listado de cuentas con acceso al sistema de la heladería.</p>
+
+        @if (listadoClientes == null)
+        {
+            <p>Cargando registros de usuarios...</p>
+        }
+        else if (!listadoClientes.Any())
+        {
+            <p class="text-muted fw-bold">No hay usuarios registrados en el sistema todavía.</p>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre Completo</th>
+                            <th>Nombre de Usuario</th>
+                            <th>Rol asignado</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in listadoClientes)
+                        {
+                            <tr>
+                                <td><strong>#@user.Id</strong></td>
+                                <td>@user.Nombre</td>
+                                <td><span class="text-muted">@user.Username</span></td>
+                                <td>
+                                    <span class="badge-status @(user.Rol == "Admin" ? "status-cancelado" : "status-procesando")">
+                                        @user.Rol
+                                    </span>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </section>
+    break;
             }
         </div>
     }
@@ -320,9 +358,12 @@
     private Vista vistaActual = Vista.Existencias;
 
     private Producto nuevoHelado = new();
+    
     private List<Producto>? listadoProductos;
     private List<Producto>? listadoInactivos;
     private List<Pedido>? listadoPedidos;
+    private List<Usuario>? listadoClientes;
+    
     private string mensajeError = string.Empty;
     private string mensajeExito = string.Empty;
     private bool estaCargando = false;
@@ -353,6 +394,10 @@
         else if (vistaActual == Vista.Pedidos)
         {
             await CargarPedidos();
+        }
+        else if (vistaActual == Vista.Clientes)
+        {
+            CargarClientes();
         }
     }
 
@@ -446,6 +491,11 @@ private void LimpiarFormulario()
     nuevoHelado = new Producto();
     mensajeError = string.Empty;
     mensajeExito = string.Empty;
+}
+
+private void CargarClientes()
+{
+    listadoClientes = AuthService.ObtenerTodosLosUsuarios();
 }
 
 }

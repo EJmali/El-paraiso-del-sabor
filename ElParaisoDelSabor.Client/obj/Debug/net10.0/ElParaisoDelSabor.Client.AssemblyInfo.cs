@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ElParaisoDelSabor.Client")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bf95a83a0d66c3ef4bc35e1bdf06a508d1b01e7")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+51ed71b052862e6ee4915884059dac12b36971bc")]
 [assembly: System.Reflection.AssemblyProductAttribute("ElParaisoDelSabor.Client")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ElParaisoDelSabor.Client")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

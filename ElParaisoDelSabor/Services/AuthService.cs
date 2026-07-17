@@ -66,4 +66,14 @@ public class AuthService
         UsuarioActual = null;
         OnChange?.Invoke();
     }
+
+    public List<Usuario> ObtenerTodosLosUsuarios()
+{
+    using var scope = _scopeFactory.CreateScope();
+    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    
+    return context.Usuarios
+        .OrderBy(u => u.Nombre)
+        .ToList();
+}
 }
