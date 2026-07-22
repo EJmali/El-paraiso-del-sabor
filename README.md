@@ -1,82 +1,61 @@
 # El Paraíso del Sabor - Enterprise Management System
+### Prototipo de Alta Fidelidad Integrado para Ingeniería de Software y Análisis de Sistemas
 
-Sistema modular de arquitectura desacoplada para la automatización de inventario, procesamiento de comandas transaccionales y auditoría de datos en tiempo real, desarrollado bajo el ecosistema de alto rendimiento de .NET y Blazor Server.
-
-## 🏗️ Arquitectura del Sistema
-
-La solución se rige bajo principios de diseño limpio, desacoplamiento estricto de responsabilidades y ejecución asíncrona no bloqueante (Non-blocking Asynchronous I/O). Toda la carga computacional pesada y el renderizado del DOM se centralizan en el servidor, utilizando canales de comunicación bidireccional mediante WebSockets a través de la infraestructura de **SignalR**.
-
-### 💻 Stack Tecnológico
-*   **Core Engine:** .NET 10.0 / C# 12
-*   **Framework de Interfaz:** Blazor Server SPA (Single Page Application)
-*   **Capa de Persistencia (ORM):** Entity Framework Core Code-First
-*   **Motor de Base de Datos:** SQLite Relacional Embebido
-*   **Entorno de Compilación Nativo:** Clang / Make en Linux Environment (Termux Isolated Environment)
+Este proyecto fue concebido, diseñado y desarrollado como un **prototipo funcional de alta fidelidad** con un enfoque estratégico multi-materia. En lugar de optar por un prototipo estático en diapositivas o maquetas interactivas tradicionales, se determinó que la construcción de un sistema de software real bajo el ecosistema .NET unificaba los criterios de evaluación de tres asignaturas simultáneas: **Programación**, **Bases de Datos** y **Análisis de Sistemas**, optimizando los tiempos de ciclo de desarrollo y entrega académica.
 
 ---
 
-## 📊 Arquitectura Relacional de Datos (Database Schema)
+## 🏗️ 1. Justificación de la Arquitectura y Selección Tecnológica
 
-El diseño físico implementa una base de datos relacional de alta consistencia con restricciones explícitas de clave primaria, unicidad e integridad referencial en cascada controlada.
+La elección de **Blazor Server SPA** (Single Page Application) sobre .NET 10.0 responde directamente a los requisitos de diseño de sistemas modernos, modularidad y despliegue ágil:
+
+*   **Modularidad Basada en Componentes:** La interfaz se descompone en componentes reutilizables (archivos `.razor`), permitiendo que el mantenimiento, los cambios estéticos o la lógica de negocio de la comanda y el catálogo se modifiquen en un único bloque aislado sin afectar la estabilidad general del sistema.
+*   **Velocidad de Despliegue (Time-to-Market):** Al unificar todo el ecosistema en **C#**, se elimina la necesidad de desarrollar APIs REST intermedias complejas o escribir código JavaScript redundante. Gracias a la infraestructura nativa de **SignalR**, cualquier actualización en el servidor se propaga en tiempo real a la interfaz mediante WebSockets automáticos, acelerando el ciclo de retroalimentación.
+*   **Portabilidad y Eficiencia Contenida:** La inclusión de **SQLite Relacional Embebido** suprime la sobrecarga de configurar y administrar servidores de bases de datos externos pesados durante la fase de prototipado, garantizando integridad referencial estricta y consistencia transaccional con una huella de memoria mínima.
+
+---
+
+## 🔄 2. Metodología de Desarrollo: Extreme Programming (XP) Adaptado
+
+El ciclo de vida del proyecto se gestionó bajo los principios ágiles de la metodología **Extreme Programming (XP)**, adaptada para dinámicas de trabajo en equipos remotos distribuidos geográficamente:
+
 
 ```text
-  [Usuario] (1) ─── 🔑 UsuarioId ───> (N) [Pedido] (1) ─── 🔑 PedidoId ───> (N) [DetallePedido]
-                                                                                      │
-                                                                                🔑 ProductoId
-                                                                                      │
-                                                                           (1) [Producto]
+[Historias de Usuario] ──> [Iteraciones Cortas] ──> [Desarrollo Remoto] ──> [Testing en Tiempo Real] ──> [Despliegue VPS]
 ```
 
-### Mecanismos de Integridad Aplicados
-1. **Preservación Histórica Transaccional:** La entidad intermedia `DetallePedido` captura y congela los valores de `PrecioUnitario` en el instante exacto de la confirmación de compra. Esto evita la alteración retroactiva de auditorías contables frente a modificaciones posteriores en la tabla maestra de `Productos`.
-2. **Abstracción mediante Borrado Lógico (Soft Delete):** La remoción de stock obedece a un indicador booleano (`Activo = false`). Las filas físicas jamás se destruyen con sentencias `DELETE` directas, salvaguardando la integridad referencial de claves foráneas históricas asociadas a comandas antiguas.
+*   **Entregas Pequeñas (Small Releases):** El desarrollo avanzó mediante incrementos funcionales mínimos pero testeables (Módulo de usuarios ➡️ Catálogo reactivo ➡️ Comandas transaccionales ➡️ Background Workers cambiarios).
+*   **Diseño Simple:** Se priorizó un diseño arquitectónico limpio y desacoplado, implementando estrictamente las reglas de negocio vigentes y evitando sobreingeniería que retrasara los entregables de las asignaturas.
+*   **Pruebas del Cliente e Integración Continua (QA Remoto):** Para validar la calidad del software sin compartir espacio físico, el flujo operó de manera síncrona/asíncrona: mientras el ingeniero de software codificaba y desplegaba los cambios en el servidor **VPS (http://159.198.39.141:5000)**, el especialista en QA realizaba pruebas de caja negra y aceptación desde su propia ubicación en tiempo real, garantizando un lazo de retroalimentación inmediato.
 
 ---
 
-## ⚙️ Capa de Servicios y Procesamiento Asíncrono
+## 📊 3. Modelo de Análisis de Sistemas y Reglas de Negocio
 
-La aplicación implementa la inyección de dependencias (`Dependency Injection`) con ciclos de vida controlados (`Scoped`, `Singleton`, `Transient`) para mitigar colisiones en subprocesos concurrentes.
+El sistema implementa un **Modelo Conceptual y Relacional de Datos** acoplado a un **Modelo de Arquitectura Basada en Eventos Reactivos**, respondiendo a las exigencias de auditoría interna requeridas en el análisis de sistemas de información:
 
-### Gestión Segura de Contextos (Thread-Safety)
-Debido a la naturaleza persistente de los circuitos de Blazor Server, compartir instancias directas de contextos de base de datos puede inducir a condiciones de carrera (`Race Conditions`). Para resolver esto, el sistema inyecta una fábrica abstracta (`IDbContextFactory<T>`), asegurando que cada consulta asíncrona instancie y destruya su propio bloque de conexión a disco:
 
-```csharp
-public async Task<bool> CrearPedidoAsync(Pedido pedido)
-{
-    using var context = await _contextFactory.CreateDbContextAsync();
-    context.Pedidos.Add(pedido);
-    return await context.SaveChangesAsync() > 0;
-}
+```text
+[Usuario] (1) ─── 🔑 UsuarioId ───> (N) [Pedido] (1) ─── 🔑 PedidoId ───> (N) [DetallePedido]│🔑 ProductoId│(1) [Producto]
 ```
 
 ---
 
-## 🌐 Consumo Automatizado de Servicios Web (External API & Background Workers)
-
-Para mitigar los efectos de la fluctuación de la moneda local, el backend ejecuta una tarea cronometrada persistente en segundo plano implementando la abstracción abstracta `BackgroundService`.
-
-### Pipeline de Datos Cambiarios
-1. El `DollarBackgroundService` despierta de forma cíclica (cada 4 horas) en un hilo secundario sin interferir con el hilo de ejecución de la interfaz gráfica.
-2. Realiza una petición asíncrona `GET` y deserializa un payload estructurado desde el endpoint seguro de la API cambiaria externa.
-3. Actualiza de manera atómica un servicio centralizado tipo `Singleton` (`DollarService`), propagando instantáneamente el nuevo factor de conversión a los componentes del catálogo y la comanda sin necesidad de llamadas directas a base de datos en cada renderizado.
-
-#### Estructura de Intercambio (JSON DTO Mapping)
-```json
-{
-  "compra": 36.45,
-  "venta": 36.55,
-  "promedio": 36.50,
-  "fechaActualizacion": "2026-07-17T00:00:00Z"
-}
-```
+### Mecanismos de Consistencia y Seguridad Sistémica
+1.  **Preservación Histórica Transaccional:** Ante el riesgo analítico de la mutabilidad de datos (variación de costos en la tabla maestra de `Productos`), la entidad intermedia `DetallePedido` congela de forma atómica el `PrecioUnitario` exacto en el instante preciso de la compra, blindando las auditorías contables frente a modificaciones retroactivas.
+2.  **Abstracción mediante Borrado Lógico (Soft Delete):** Ningún registro se destruye físicamente mediante sentencias `DELETE`. La desincorporación de inventario obedece a una bandera booleana (`Activo = false`), salvaguardando la integridad referencial de claves foráneas históricas asociadas a comandas antiguas.
+3.  **Seguridad en Gestión de Concurrencia (Thread-Safety):** Para mitigar condiciones de carrera (*Race Conditions*) inherentes a los circuitos persistentes de Blazor Server, el backend implementa una fábrica abstracta (`IDbContextFactory<T>`), obligando a que cada consulta asíncrona instancie y destruya su propio bloque de conexión aislado.
 
 ---
 
-## 🔒 Control de Estado y Autenticación Personalizada
+## 🗣️ 4. Estructura Organizacional y Roles para la Defensa
 
-El software descarta los intermediarios pesados de cookies nativas para implementar un motor ágil de gestión de sesiones a través del servicio desacoplado `AuthService`. 
+Con el propósito de evaluar las competencias sistémicas de todos los integrantes del equipo, la defensa del proyecto ante el jurado se estructura dividiendo el sistema en cuatro dimensiones claras (Procesos, Negocio, Calidad y Tecnología), permitiendo que los miembros no programadores lideren áreas analíticas críticas:
 
-El estado de la sesión activa de los clientes (`UsuarioActual`) se mantiene encapsulado y expone un patrón de eventos reactivos (`Action OnChange`). Cuando un cliente inicia o cierra sesión, el evento notifica al árbol de componentes de Blazor para forzar el refresco selectivo de la interfaz (`StateHasChanged`), bloqueando las rutas críticas del Dashboard Administrativo y redirigiendo el procesamiento del carrito de compras de forma totalmente dinámica y segura.
+*   **Rol 1: Analista de Sistemas / Project Manager (Gestión de Procesos):** Defensa de la problemática del restaurante, justificación de la metodología ágil **XP**, levantamiento de Historias de Usuario, gestión del tiempo y viabilidad del desarrollo remoto.
+*   **Rol 2: Diseñador de Base de Datos / Analista Funcional (Lógica de Negocio):** Defensa del modelo entidad-relación, reglas de integridad referencial, el mecanismo de **Borrado Lógico** y la preservación del histórico contable en `DetallePedido`.
+*   **Rol 3: Aseguramiento de Calidad / Tester de Software (Control de Calidad):** Defensa de la estrategia de **Testing Remoto**, pruebas de aceptación, usabilidad del prototipo de alta fidelidad, validación de flujos de usuario y control de despliegue en el entorno de producción (VPS).
+*   **Rol 4: Ingeniero de Software Core / Desarrollador (Capa Tecnológica):** Defensa de la infraestructura técnica avanzada: inyección de dependencias con ciclos de vida controlados, manejo de concurrencia y subprocesos con `IDbContextFactory`, y automatización asíncrona en segundo plano (`DollarBackgroundService`).
 
 ---
 
@@ -89,9 +68,3 @@ Mientras el servidor VPS permanezca activo, la aplicación puede consultarse des
 La disponibilidad de esta URL está sujeta al estado del servicio en el VPS y se mantiene vigente durante un lapso de tiempo indefinido, condicionado únicamente por la administración del servidor.
 
 ---
-
-## Consideraciones finales
-
-La adopción de Blazor en lugar de Windows Forms, el uso de Git y GitHub para la gestión del código y la ejecución del sistema en un VPS fueron decisiones clave que definieron la forma de trabajar en **El Paraíso del Sabor**.
-
-Estas elecciones permitieron construir una solución modular, accesible de forma remota y alineada con tecnologías actuales de desarrollo en .NET, manteniendo al mismo tiempo el enfoque académico y la posibilidad de evaluar el proyecto tanto a nivel técnico como organizativo.
